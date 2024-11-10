@@ -29,6 +29,9 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 ## Future Features (ordered by difficulty to implement):
 - Spoink can be interacted with (right click) to launch the player into the air, with fall damage negated upon landing.
 - Snorlax can act as a sleeping bag, allowing the player to sleep anywhere (thus healing all of their mons and turning night to day). Should not set their spawn point.
+- Pokemon with the Ally Swap move will swap positions with the player when they fall into lava (and/or take lethal fall damage?)
+- Pokemon with the Seed Sower Ability (ie. Arboliva) will plant seeds where they walk.
+- Pokemon with the Seed Bomb move will pick up seeds/carrots/etc. near them and plant them nearby (if able).
 - Sandshrew/Sandslash apply a large mining speed bonus to nearby players if the Pokemon is standing on Sand or Sandstone. (Haste beacon effect, maybe Haste 3 but testing needs to be done).
   - This effect will be configurable as "Apply *X* effect if *Y* mon is on *Z* block"
 - Machoke/Machamp will apply a periodic boost to mining speed, haste effect (say a 30 second buff once every couple minutes, for reference but undecided).
