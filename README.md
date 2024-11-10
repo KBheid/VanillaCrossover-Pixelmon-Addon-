@@ -34,7 +34,8 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 - Machoke/Machamp will apply a periodic boost to mining speed, haste effect (say a 30 second buff once every couple minutes, for reference but undecided).
   - This effect will be configurable as "*W* mon applies *X* effect every *Y* seconds for *Z* seconds" 
 - Some Pokemon that can be traded with to re-implement Piglin bartering.
-- Heatran provides periodic fuel to nearby furnaces.
+- Blaze ability provides periodic fuel to nearby furnaces.
+- Heatran will instant-smelt items in nearby furnaces occasionally.
 - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
 - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
 - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
