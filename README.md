@@ -32,6 +32,7 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 - Pokemon with the Ally Swap move will swap positions with the player when they fall into lava (and/or take lethal fall damage?)
 - Pokemon with the Seed Sower Ability (ie. Arboliva) will plant seeds where they walk.
 - Pokemon with the Seed Bomb move will pick up seeds/carrots/etc. near them and plant them nearby (if able).
+- Pokemon with the Cheek Pouch ability will have a very small storage (9 slots).
 - Sandshrew/Sandslash apply a large mining speed bonus to nearby players if the Pokemon is standing on Sand or Sandstone. (Haste beacon effect, maybe Haste 3 but testing needs to be done).
   - This effect will be configurable as "Apply *X* effect if *Y* mon is on *Z* block"
 - Machoke/Machamp will apply a periodic boost to mining speed, haste effect (say a 30 second buff once every couple minutes, for reference but undecided).
