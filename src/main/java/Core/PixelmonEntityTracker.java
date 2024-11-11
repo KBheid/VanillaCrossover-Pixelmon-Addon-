@@ -41,7 +41,7 @@ public class PixelmonEntityTracker<T> {
             for (PixelmonEntityTracker<?> tracker : activeTrackers) {
                 if (tracker.validator.test(entity)) {
                     tracker.trackedEntities.put(entity, null);
-                    if (tracker.onEntityRemoved != null) {
+                    if (tracker.onEntityAdded != null) {
                         tracker.onEntityAdded.accept(entity);
                     }
                 }
@@ -154,6 +154,8 @@ public class PixelmonEntityTracker<T> {
     public void ClearRemoveEvent() { onEntityRemoved = null; }
 
     public T GetEntityData(PixelmonEntity entity) { return (T) trackedEntities.get(entity); }
+
+    // TODO: Is there a cleaner way to set the entity data's default? As is, the default must be set in onEntityAdded...
     public void SetEntityData(PixelmonEntity entity, T data) { trackedEntities.put(entity, data); }
 
     /// If this tracker's lifetime isn't static, calling this is necessary to cease tracking (no need to clear events).

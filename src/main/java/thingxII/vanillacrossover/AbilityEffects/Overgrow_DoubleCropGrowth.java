@@ -1,15 +1,12 @@
-package thingxII.vanillacrossover;
+package thingxII.vanillacrossover.AbilityEffects;
 
 import Core.PixelmonEntityTracker;
 import com.google.common.collect.Iterators;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry;
-import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.Property;
 import net.minecraft.util.Direction;

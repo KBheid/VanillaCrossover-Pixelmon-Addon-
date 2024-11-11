@@ -13,6 +13,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import thingxII.vanillacrossover.AbilityEffects.Harvest_HarvestCrops;
+import thingxII.vanillacrossover.AbilityEffects.Overgrow_DoubleCropGrowth;
 import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
 import thingxII.vanillacrossover.Config.PeriodicDroppingConfig;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
@@ -37,7 +39,7 @@ public class VanillaCrossover {
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(PixelmonEntityTracker.class);
-        Pixelmon.EVENT_BUS.register(PixelmonEntityTracker.class);
+        // Pixelmon.EVENT_BUS.register(PixelmonEntityTracker.class);
         bus.addListener(this::commonSetup);
 
         bus.register(ContainerRegistration.class);
@@ -58,6 +60,7 @@ public class VanillaCrossover {
 
         MinecraftForge.EVENT_BUS.register(PeriodicDropping.class);
         MinecraftForge.EVENT_BUS.register(Overgrow_DoubleCropGrowth.class);
+        MinecraftForge.EVENT_BUS.register(Harvest_HarvestCrops.class);
     }
 
 }
