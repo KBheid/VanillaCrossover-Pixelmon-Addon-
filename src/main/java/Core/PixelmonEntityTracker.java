@@ -1,7 +1,5 @@
 package Core;
 
-import com.pixelmonmod.pixelmon.api.events.PokemonRetrievedEvent;
-import com.pixelmonmod.pixelmon.api.events.PokemonSendOutEvent;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.world.server.ServerWorld;
@@ -18,12 +16,12 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class PixelmonEntityTracker<T> {
-    private final HashMap<PixelmonEntity, T> trackedEntities = new HashMap<>();
+    protected final HashMap<PixelmonEntity, T> trackedEntities = new HashMap<>();
 
     private final Predicate<PixelmonEntity> validator;
-    private Consumer<PixelmonEntity> onEntityAdded = null;
-    private Consumer<PixelmonEntity> onEntityRemoved = null;
-    private Consumer<PixelmonEntity> onEntityTick = null;
+    protected Consumer<PixelmonEntity> onEntityAdded = null;
+    protected Consumer<PixelmonEntity> onEntityRemoved = null;
+    protected Consumer<PixelmonEntity> onEntityTick = null;
 
     private boolean tickingValidator = false;
 

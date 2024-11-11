@@ -68,7 +68,8 @@ public class BounceEffect {
             return;
         }
 
-        // 0.75 - 2.0 for boost
+        // TODO:
+        // 0.75 - 2.0 for boost, determined by sp. attack or something
         Vector3d prevMovement = player.getDeltaMovement();
         player.setDeltaMovement(prevMovement.add(0, UPWARD_BOOST, 0));
         player.hurtMarked = true;

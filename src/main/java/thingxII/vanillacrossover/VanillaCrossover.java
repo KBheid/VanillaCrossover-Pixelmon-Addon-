@@ -21,6 +21,7 @@ import thingxII.vanillacrossover.Config.StatusItemsConfig;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.BlazePowderBurn;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.PufferPoison;
 import thingxII.vanillacrossover.PokemonEffects.BounceEffect;
+import thingxII.vanillacrossover.MoveEffects.SafetyTeleportEffect;
 import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.PlayerPokemonStorage;
 import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.StoragePokemonInteraction;
 import thingxII.vanillacrossover.PokemonEffects.PeriodicDropping.PeriodicDropping;
@@ -64,6 +65,7 @@ public class VanillaCrossover {
         MinecraftForge.EVENT_BUS.register(Harvest_HarvestCrops.class);
         MinecraftForge.EVENT_BUS.register(SeedSower_PlantSeeds.class);
         MinecraftForge.EVENT_BUS.register(BounceEffect.class);
+        MinecraftForge.EVENT_BUS.register(SafetyTeleportEffect.class);
     }
 
 }
