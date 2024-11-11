@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.PeriodicDropping;
+package thingxII.vanillacrossover.PokemonEffects.PeriodicDropping;
 
 import com.pixelmonmod.api.registry.RegistryValue;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;

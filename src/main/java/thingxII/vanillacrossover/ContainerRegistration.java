@@ -6,8 +6,8 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import thingxII.vanillacrossover.StoragePokemon.PokemonStorageContainer;
-import thingxII.vanillacrossover.StoragePokemon.PokemonStorageScreen;
+import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.PokemonStorageContainer;
+import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.PokemonStorageScreen;
 
 public class ContainerRegistration {
     public static ContainerType<PokemonStorageContainer> STORAGE_POKEMON_CONTAINER_TYPE;

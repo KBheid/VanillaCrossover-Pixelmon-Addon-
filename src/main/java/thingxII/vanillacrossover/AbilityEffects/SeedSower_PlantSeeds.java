@@ -4,7 +4,6 @@ import Core.PixelmonEntityTracker;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
-import net.minecraft.block.AirBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;

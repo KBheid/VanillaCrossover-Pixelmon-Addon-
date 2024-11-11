@@ -43,7 +43,7 @@ public class Overgrow_DoubleCropGrowth {
             return dist <= MAX_RANGE;
         });
 
-        if (foundNearbyMon) {
+        if (foundNearbyMon && event.getState().getBlock() instanceof CropsBlock) {
             CropsBlock cropBlock = (CropsBlock) event.getState().getBlock();
 
             Property<Integer> ageProperty = cropBlock.getAgeProperty();

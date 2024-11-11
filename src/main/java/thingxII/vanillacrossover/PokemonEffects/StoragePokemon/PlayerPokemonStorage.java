@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.StoragePokemon;
+package thingxII.vanillacrossover.PokemonEffects.StoragePokemon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;

@@ -1,7 +1,6 @@
 package thingxII.vanillacrossover;
 
 import Core.PixelmonEntityTracker;
-import com.pixelmonmod.pixelmon.Pixelmon;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,11 +18,12 @@ import thingxII.vanillacrossover.AbilityEffects.SeedSower_PlantSeeds;
 import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
 import thingxII.vanillacrossover.Config.PeriodicDroppingConfig;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
-import thingxII.vanillacrossover.PeriodicDropping.PeriodicDropping;
-import thingxII.vanillacrossover.StatusEffectItems.BlazePowderBurn;
-import thingxII.vanillacrossover.StatusEffectItems.PufferPoison;
-import thingxII.vanillacrossover.StoragePokemon.PlayerPokemonStorage;
-import thingxII.vanillacrossover.StoragePokemon.StoragePokemonInteraction;
+import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.BlazePowderBurn;
+import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.PufferPoison;
+import thingxII.vanillacrossover.PokemonEffects.BounceEffect;
+import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.PlayerPokemonStorage;
+import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.StoragePokemonInteraction;
+import thingxII.vanillacrossover.PokemonEffects.PeriodicDropping.PeriodicDropping;
 
 @Mod("vanillacrossover")
 @Mod.EventBusSubscriber(modid = "vanillacrossover")
@@ -63,6 +63,7 @@ public class VanillaCrossover {
         MinecraftForge.EVENT_BUS.register(Overgrow_DoubleCropGrowth.class);
         MinecraftForge.EVENT_BUS.register(Harvest_HarvestCrops.class);
         MinecraftForge.EVENT_BUS.register(SeedSower_PlantSeeds.class);
+        MinecraftForge.EVENT_BUS.register(BounceEffect.class);
     }
 
 }

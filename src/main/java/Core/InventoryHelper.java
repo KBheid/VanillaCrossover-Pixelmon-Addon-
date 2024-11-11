@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover;
+package Core;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

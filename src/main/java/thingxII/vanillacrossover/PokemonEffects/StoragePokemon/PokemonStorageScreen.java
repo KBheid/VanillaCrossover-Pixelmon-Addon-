@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.StoragePokemon;
+package thingxII.vanillacrossover.PokemonEffects.StoragePokemon;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;

@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.StoragePokemon;
+package thingxII.vanillacrossover.PokemonEffects.StoragePokemon;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

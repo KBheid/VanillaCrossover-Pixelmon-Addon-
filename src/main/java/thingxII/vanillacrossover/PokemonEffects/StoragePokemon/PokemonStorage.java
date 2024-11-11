@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.StoragePokemon;
+package thingxII.vanillacrossover.PokemonEffects.StoragePokemon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
-import thingxII.vanillacrossover.InventoryHelper;
+import Core.InventoryHelper;
 import thingxII.vanillacrossover.InventoryStorageData;
 import thingxII.vanillacrossover.StorageType;
 
