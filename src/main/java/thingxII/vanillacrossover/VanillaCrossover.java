@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import thingxII.vanillacrossover.AbilityEffects.Harvest_HarvestCrops;
 import thingxII.vanillacrossover.AbilityEffects.Overgrow_DoubleCropGrowth;
+import thingxII.vanillacrossover.AbilityEffects.SeedSower_PlantSeeds;
 import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
 import thingxII.vanillacrossover.Config.PeriodicDroppingConfig;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
@@ -61,6 +62,7 @@ public class VanillaCrossover {
         MinecraftForge.EVENT_BUS.register(PeriodicDropping.class);
         MinecraftForge.EVENT_BUS.register(Overgrow_DoubleCropGrowth.class);
         MinecraftForge.EVENT_BUS.register(Harvest_HarvestCrops.class);
+        MinecraftForge.EVENT_BUS.register(SeedSower_PlantSeeds.class);
     }
 
 }

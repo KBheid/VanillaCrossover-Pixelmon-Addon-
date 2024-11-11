@@ -28,7 +28,8 @@ public class Overgrow_DoubleCropGrowth {
     private static PixelmonEntityTracker<Boolean> tracker;
     private static final Random random = new Random();
 
-    private static List<Ability> abilities = Arrays.asList(AbilityRegistry.OVERGROW.get());
+    // TODO: Configuration
+    private static final List<Ability> abilities = Arrays.asList(AbilityRegistry.OVERGROW.get());
 
     @SubscribeEvent
     public static void OnServerStarted(FMLServerStartedEvent event) {
