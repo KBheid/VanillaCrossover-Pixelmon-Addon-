@@ -9,6 +9,8 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - **Overgrow**: Pokemon that have this ability will double the growth stage of a crop when it successfully grows (at its natural rate). This applies to wild or owned Pokemon.
   - **Harvest**: Pokemon that have this ability will periodically harvest crops around them. By default, this applies only to owned Pokemon.
   - **Seed Sower**: Pokemon with this ability (ie. Arboliva) will plant seeds where they walk (do not need to pick any seeds up).
+- Move Effects:
+  - **Ally Switch**: Pokemon that know this move will swap positions with the player if they fall into lava. (3 minute cooldown)
 - Status Effect Items
   - **Pufferfish**: Feeding a pufferfish to a Pokemon will cause it to have the Poisoned status effect. This can be useful for either a Pokemon with Guts or the Poison Heal ability.
   - **Blaze Powder**: Throwing this on a Pokemon will cause it to have the Burn status effect. This can be useful for Guts.
@@ -23,14 +25,13 @@ If you install the mod and run it as-is out of the box, you'll have access to th
       - *HP EVs*: If they have 126 or more HP EVs, this mon will have a +1 to its storage size.
       - *Dynamax*: If they have 5 or more Dynamax power, this mon will have a +1 to its storage size.
       - *Any of the above maxed*: This Pokemon will have a +1 to its storage size.
-      - The base size is 1 and maxes at 5 (+1 for each of the above). The sizes are: 9, 18, 27, 54, 104.
+      - The base size is 1 and maxes at 5 (+1 for each of the above). The sizes are: 9, 18, 27, 54, 104. 
 
 ## Configuration
 **TODO**
 
 ## Future Features (ordered by difficulty to implement):
 - Snorlax can act as a sleeping bag, allowing the player to sleep anywhere (thus healing all of their mons and turning night to day). Should not set their spawn point.
-- Pokemon with the Ally Switch move will swap positions with the player when they fall into lava (and/or take lethal fall damage?) (in progress)
 - Pokemon with the Seed Bomb move will pick up seeds/carrots/etc. near them and plant them nearby (if able).
 - Sandshrew/Sandslash apply a large mining speed bonus to nearby players if the Pokemon is standing on Sand or Sandstone. (Haste beacon effect, maybe Haste 3 but testing needs to be done).
   - This effect will be configurable as "Apply *X* effect if *Y* mon is on *Z* block"
