@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.PokemonEffects;
+package thingxII.vanillacrossover.Effects;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BounceEffect {
+public class BounceOnRightClick {
     private static final List<ServerPlayerEntity> playersWithNegatedFall = new ArrayList<>();
     private static Species ALLOWED_SPECIES = null;
     private static final float UPWARD_BOOST = 2;

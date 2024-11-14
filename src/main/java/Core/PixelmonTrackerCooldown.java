@@ -1,9 +1,9 @@
-package thingxII.vanillacrossover;
+package Core;
 
-import Core.PixelmonEntityTracker;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 

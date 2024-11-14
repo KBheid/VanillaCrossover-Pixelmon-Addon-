@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.PokemonEffects.PeriodicDropping;
+package thingxII.vanillacrossover.Effects.PeriodicDropping;
 
 import net.minecraft.item.Item;
 

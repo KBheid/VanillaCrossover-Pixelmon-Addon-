@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class PixelmonEntityTracker<T> {
@@ -22,10 +23,11 @@ public class PixelmonEntityTracker<T> {
     protected Consumer<PixelmonEntity> onEntityAdded = null;
     protected Consumer<PixelmonEntity> onEntityRemoved = null;
     protected Consumer<PixelmonEntity> onEntityTick = null;
+    protected Function<PixelmonEntity, T> getDefaultData = null;
 
     private boolean tickingValidator = false;
 
-    private static final List<PixelmonEntityTracker<?>> activeTrackers = new ArrayList<>();
+    private static final List<PixelmonEntityTracker> activeTrackers = new ArrayList<>();
 
     @SubscribeEvent
     public static void OnEntitySpawned(EntityJoinWorldEvent event) {
@@ -36,9 +38,16 @@ public class PixelmonEntityTracker<T> {
         if (event.getEntity() instanceof PixelmonEntity) {
             PixelmonEntity entity = (PixelmonEntity) event.getEntity();
 
-            for (PixelmonEntityTracker<?> tracker : activeTrackers) {
+            for (PixelmonEntityTracker tracker : activeTrackers) {
                 if (tracker.validator.test(entity)) {
-                    tracker.trackedEntities.put(entity, null);
+
+                    if (tracker.getDefaultData != null) {
+                        tracker.trackedEntities.put(entity, tracker.getDefaultData.apply(entity));
+                    }
+                    else {
+                        tracker.trackedEntities.put(entity, null);
+                    }
+
                     if (tracker.onEntityAdded != null) {
                         tracker.onEntityAdded.accept(entity);
                     }
@@ -141,6 +150,8 @@ public class PixelmonEntityTracker<T> {
 
     /// Simple constuctor for creating species-specific trackers
     public PixelmonEntityTracker(Collection<Species> acceptedSpecies) { this((e) -> acceptedSpecies.contains(e.getSpecies()), false); }
+
+    public void SetDefaultDataSetter(Function<PixelmonEntity, T> function) { getDefaultData = function; }
 
     public void SetTickEvent(Consumer<PixelmonEntity> tick) { onEntityTick = tick; }
     public void ClearTickEvent() { onEntityTick = null;  }

@@ -257,7 +257,7 @@
             },
             {
               "name": "basket",
-              "texture": "pixelmon:pokemon/750_mudsdale/all/base/none/texture.png",
+              "texture": "pixelmon:pokemon/750_mudsdale/all/base/none/mudsdale_basket_texture.png",
               "sprite": "pixelmon:pokemon/750_mudsdale/all/base/none/sprite.png",
               "particle": "",
               "modelLocator": {
@@ -270,7 +270,7 @@
             },
             {
               "name": "basket_shiny",
-              "texture": "pixelmon:pokemon/750_mudsdale/all/base/shiny/texture.png",
+              "texture": "pixelmon:pokemon/750_mudsdale/all/base/shiny/mudsdale_basket_texture.png",
               "sprite": "pixelmon:pokemon/750_mudsdale/all/base/shiny/sprite.png",
               "particle": "arcanery:shiny",
               "modelLocator": {

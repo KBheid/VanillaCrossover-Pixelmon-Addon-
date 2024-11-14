@@ -12,19 +12,18 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import thingxII.vanillacrossover.AbilityEffects.Harvest_HarvestCrops;
-import thingxII.vanillacrossover.AbilityEffects.Overgrow_DoubleCropGrowth;
-import thingxII.vanillacrossover.AbilityEffects.SeedSower_PlantSeeds;
+import thingxII.vanillacrossover.Effects.DoubleCropGrowth;
+import thingxII.vanillacrossover.Effects.HarvestCrops;
+import thingxII.vanillacrossover.Effects.CreateAndPlantSeeds;
 import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
-import thingxII.vanillacrossover.Config.PeriodicDroppingConfig;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.BlazePowderBurn;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.PufferPoison;
-import thingxII.vanillacrossover.PokemonEffects.BounceEffect;
-import thingxII.vanillacrossover.MoveEffects.SafetyTeleportEffect;
-import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.PlayerPokemonStorage;
-import thingxII.vanillacrossover.PokemonEffects.StoragePokemon.StoragePokemonInteraction;
-import thingxII.vanillacrossover.PokemonEffects.PeriodicDropping.PeriodicDropping;
+import thingxII.vanillacrossover.Effects.BounceOnRightClick;
+import thingxII.vanillacrossover.Effects.SwapPositionOwnerInDanger;
+import thingxII.vanillacrossover.Effects.StoragePokemon.PlayerPokemonStorage;
+import thingxII.vanillacrossover.Effects.StoragePokemon.StoragePokemonInteraction;
+import thingxII.vanillacrossover.Effects.PeriodicDropping.PeriodicDropping;
 
 @Mod("vanillacrossover")
 @Mod.EventBusSubscriber(modid = "vanillacrossover")
@@ -35,7 +34,6 @@ public class VanillaCrossover {
     public VanillaCrossover() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ChestablePokemonConfig.SPEC, "vanillacrossover/ChestablePokemon.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, StatusItemsConfig.SPEC, "vanillacrossover/StatusItems.toml");
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, PeriodicDroppingConfig.SPEC, "vanillacrossover/PeriodicDropping.toml");
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -49,6 +47,7 @@ public class VanillaCrossover {
 
     @SubscribeEvent
     public void commonSetup(FMLCommonSetupEvent event) {
+        ConfigProxy.reload();
 
         if (ChestablePokemonConfig.allowChestablePokemon && !ChestablePokemonConfig.chestableSpecies.isEmpty()) {
             MinecraftForge.EVENT_BUS.register(PlayerPokemonStorage.class);
@@ -61,11 +60,11 @@ public class VanillaCrossover {
         }
 
         MinecraftForge.EVENT_BUS.register(PeriodicDropping.class);
-        MinecraftForge.EVENT_BUS.register(Overgrow_DoubleCropGrowth.class);
-        MinecraftForge.EVENT_BUS.register(Harvest_HarvestCrops.class);
-        MinecraftForge.EVENT_BUS.register(SeedSower_PlantSeeds.class);
-        MinecraftForge.EVENT_BUS.register(BounceEffect.class);
-        MinecraftForge.EVENT_BUS.register(SafetyTeleportEffect.class);
+        MinecraftForge.EVENT_BUS.register(DoubleCropGrowth.class);
+        MinecraftForge.EVENT_BUS.register(HarvestCrops.class);
+        MinecraftForge.EVENT_BUS.register(CreateAndPlantSeeds.class);
+        MinecraftForge.EVENT_BUS.register(BounceOnRightClick.class);
+        MinecraftForge.EVENT_BUS.register(SwapPositionOwnerInDanger.class);
     }
 
 }

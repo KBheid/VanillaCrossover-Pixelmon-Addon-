@@ -1,35 +1,157 @@
 package thingxII.vanillacrossover.Config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import Core.PredicateConfigSerializer;
+import com.pixelmonmod.pixelmon.api.config.api.data.ConfigPath;
+import com.pixelmonmod.pixelmon.api.config.api.yaml.AbstractYamlConfig;
+import info.pixelmon.repack.org.spongepowered.objectmapping.ConfigSerializable;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
+import thingxII.vanillacrossover.Effects.PeriodicDropping.PeriodicDropData;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = "vanillacrossover", bus = Mod.EventBusSubscriber.Bus.MOD)
-public class PeriodicDroppingConfig {
+@ConfigSerializable
+@ConfigPath("config/vanillacrossover/PeriodicDrops.yml")
+public class PeriodicDroppingConfig extends AbstractYamlConfig {
+    private List<SpecConfig> config;
 
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
-
-    private static final ForgeConfigSpec.ConfigValue<List<? extends String>> DROPPING_SPECIES;
-
-    static {
-        DROPPING_SPECIES = BUILDER
-            .comment("The format for drops should be: POKEMONNAME#secondsForDrop [ modid:itemType|minDropped|maxDropped,modid:itemType|minDropped|maxDropped,etc. ]")
-            .comment("Spaces/tabs are optional outside of the name and drop ticks (but encouraged for readability)")
-            .define("Species Periodic Drops", Arrays.asList(
-                    "TRUBBISH#100 \t [ minecraft:glass_bottle|1|2, minecraft:potato|1|3, minecraft:carrot|1|3, minecraft:beetroot|1|3, minecraft:rotten_flesh|1|5, minecraft:bone|1|3, minecraft:leather|1|3, minecraft:bread|1|2, minecraft:bucket|1|1, minecraft:charcoal|2|3, minecraft:chicken|1|1, minecraft:clay_ball|1|3, minecraft:cobweb|1|2, minecraft:damaged_anvil|1|1, minecraft:dead_bush|1|1, minecraft:egg|1|2, minecraft:flower_pot|1|1, minecraft:glowstone_dust|2|3, minecraft:gold_nugget|1|2, minecraft:lead|1|1, minecraft:mutton|1|1, minecraft:netherite_scrap|1|1, minecraft:podzol|1|3, minecraft:player_head|1|1, minecraft:poisonous_potato|1|1, minecraft:porkchop|1|2, minecraft:redstone|1|3, minecraft:shulker_shell|1|1, minecraft:slime_ball|2|3, minecraft:sponge|1|2, minecraft:stick|3|4, minecraft:string|2|3, minecraft:suspicious_stew|1|1, minecraft:zombie_head|1|1, minecraft:fermented_spider_eye|1|8 ]",
-                    "GARBODOR#60  \t [ minecraft:glass_bottle|1|2, minecraft:potato|1|3, minecraft:carrot|1|3, minecraft:beetroot|1|3, minecraft:rotten_flesh|1|5, minecraft:bone|1|3, minecraft:leather|1|3, minecraft:bread|1|2, minecraft:bucket|1|1, minecraft:charcoal|2|3, minecraft:chicken|1|1, minecraft:clay_ball|1|3, minecraft:cobweb|1|2, minecraft:chipped_anvil|1|1, minecraft:dead_bush|1|1, minecraft:egg|1|2, minecraft:flower_pot|1|1, minecraft:glowstone_dust|2|3, minecraft:gold_nugget|1|2, minecraft:lead|1|1, minecraft:mutton|1|1, minecraft:netherite_scrap|1|1, minecraft:podzol|1|3, minecraft:player_head|1|1, minecraft:poisonous_potato|1|1, minecraft:porkchop|1|2, minecraft:redstone|1|3, minecraft:shulker_shell|1|1, minecraft:slime_ball|2|3, minecraft:sponge|1|2, minecraft:stick|3|4, minecraft:string|2|3, minecraft:suspicious_stew|1|1, minecraft:zombie_head|1|1, minecraft:fermented_spider_eye|1|8, minecraft:netherite_scrap|1|1, minecraft:shulker_shell|1|1, minecraft:sponge|1|2 ]"),
-                o -> o instanceof String);
+    PeriodicDroppingConfig() {
+        config = Arrays.asList(
+                new SpecConfig(new PredicateConfigSerializer(new ArrayList<>(), new ArrayList<>(), Arrays.asList("TRUBBISH")),
+                        100,
+                        Arrays.asList(
+                                new DropConfig("minecraft:glass_bottle", 1, 2),
+                                new DropConfig("minecraft:potato", 1, 3),
+                                new DropConfig("minecraft:carrot", 1, 3),
+                                new DropConfig("minecraft:beetroot", 1, 3),
+                                new DropConfig("minecraft:rotten_flesh", 1, 5),
+                                new DropConfig("minecraft:bone", 1, 3),
+                                new DropConfig("minecraft:leather", 1, 3),
+                                new DropConfig("minecraft:bread", 1, 2),
+                                new DropConfig("minecraft:bucket", 1, 1),
+                                new DropConfig("minecraft:charcoal", 2, 3),
+                                new DropConfig("minecraft:chicken", 1, 1),
+                                new DropConfig("minecraft:clay_ball", 1, 3),
+                                new DropConfig("minecraft:cobweb", 1, 2),
+                                new DropConfig("minecraft:damaged_anvil", 1, 1),
+                                new DropConfig("minecraft:dead_bush", 1, 1),
+                                new DropConfig("minecraft:egg", 1, 2),
+                                new DropConfig("minecraft:flower_pot", 1, 1),
+                                new DropConfig("minecraft:glowstone_dust", 2, 3),
+                                new DropConfig("minecraft:gold_nugget", 1, 2),
+                                new DropConfig("minecraft:lead", 1, 1),
+                                new DropConfig("minecraft:mutton", 1, 1),
+                                new DropConfig("minecraft:netherite_scrap", 1, 1),
+                                new DropConfig("minecraft:podzol", 1, 3),
+                                new DropConfig("minecraft:player_head", 1, 1),
+                                new DropConfig("minecraft:poisonous_potato", 1, 1),
+                                new DropConfig("minecraft:porkchop", 1, 2),
+                                new DropConfig("minecraft:redstone", 1, 3),
+                                new DropConfig("minecraft:shulker_shell", 1, 1),
+                                new DropConfig("minecraft:slime_ball", 2, 3),
+                                new DropConfig("minecraft:sponge", 1, 2),
+                                new DropConfig("minecraft:stick", 3, 4),
+                                new DropConfig("minecraft:string", 2, 3),
+                                new DropConfig("minecraft:suspicious_stew", 1, 1),
+                                new DropConfig("minecraft:zombie_head", 1, 1),
+                                new DropConfig("minecraft:fermented_spider_eye", 1, 8)
+                        )
+                ),
+                new SpecConfig(new PredicateConfigSerializer(new ArrayList<>(), new ArrayList<>(), Arrays.asList("GARBODOR")),
+                        60,
+                        Arrays.asList(
+                                new DropConfig("minecraft:glass_bottle", 1, 2),
+                                new DropConfig("minecraft:potato", 1, 3),
+                                new DropConfig("minecraft:carrot", 1, 3),
+                                new DropConfig("minecraft:beetroot", 1, 3),
+                                new DropConfig("minecraft:rotten_flesh", 1, 5),
+                                new DropConfig("minecraft:bone", 1, 3),
+                                new DropConfig("minecraft:leather", 1, 3),
+                                new DropConfig("minecraft:bread", 1, 2),
+                                new DropConfig("minecraft:bucket", 1, 1),
+                                new DropConfig("minecraft:charcoal", 2, 3),
+                                new DropConfig("minecraft:chicken", 1, 1),
+                                new DropConfig("minecraft:clay_ball", 1, 3),
+                                new DropConfig("minecraft:cobweb", 1, 2),
+                                new DropConfig("minecraft:chipped_anvil", 1, 1),
+                                new DropConfig("minecraft:dead_bush", 1, 1),
+                                new DropConfig("minecraft:egg", 1, 2),
+                                new DropConfig("minecraft:flower_pot", 1, 1),
+                                new DropConfig("minecraft:glowstone_dust", 2, 3),
+                                new DropConfig("minecraft:gold_nugget", 1, 2),
+                                new DropConfig("minecraft:lead", 1, 1),
+                                new DropConfig("minecraft:mutton", 1, 1),
+                                new DropConfig("minecraft:netherite_scrap", 1, 1),
+                                new DropConfig("minecraft:netherite_scrap", 1, 1),
+                                new DropConfig("minecraft:podzol", 1, 3),
+                                new DropConfig("minecraft:player_head", 1, 1),
+                                new DropConfig("minecraft:poisonous_potato", 1, 1),
+                                new DropConfig("minecraft:porkchop", 1, 2),
+                                new DropConfig("minecraft:redstone", 1, 3),
+                                new DropConfig("minecraft:shulker_shell", 1, 1),
+                                new DropConfig("minecraft:shulker_shell", 1, 1),
+                                new DropConfig("minecraft:slime_ball", 2, 3),
+                                new DropConfig("minecraft:sponge", 1, 2),
+                                new DropConfig("minecraft:sponge", 1, 2),
+                                new DropConfig("minecraft:stick", 3, 4),
+                                new DropConfig("minecraft:string", 2, 3),
+                                new DropConfig("minecraft:suspicious_stew", 1, 1),
+                                new DropConfig("minecraft:zombie_head", 1, 1),
+                                new DropConfig("minecraft:fermented_spider_eye", 1, 8)
+                        )
+                )
+        );
     }
 
-    public static final ForgeConfigSpec SPEC = BUILDER.build();
+    public List<SpecConfig> getConfig() { return config; }
 
-    public static List<? extends String> periodicDrops;
+    @ConfigSerializable
+    public static class SpecConfig {
+        private PredicateConfigSerializer predicate;
+        private int cooldown;
+        private List<DropConfig> drops;
 
-    @SubscribeEvent
-    static void onLoad(final ModConfig.ModConfigEvent event) {
-        periodicDrops = DROPPING_SPECIES.get();
+        public SpecConfig() { }
+
+        public SpecConfig(PredicateConfigSerializer predicate, int cooldown, List<DropConfig> drops) {
+            this.predicate = predicate;
+            this.cooldown = cooldown;
+            this.drops = drops;
+        }
+
+        public PredicateConfigSerializer getPredicate() { return predicate; }
+        public int getCooldown() { return cooldown; }
+        public List<DropConfig> getDrops() { return drops; }
+
+        public List<PeriodicDropData> getDropData() {
+            ArrayList<PeriodicDropData> ret = new ArrayList<>();
+
+            for (DropConfig drop : drops) {
+                ret.add(new PeriodicDropData(ForgeRegistries.ITEMS.getValue(new ResourceLocation(drop.getItem())), drop.getMinQuantity(), drop.getMaxQuantity(), cooldown));
+            }
+
+            return ret;
+        }
+    }
+
+    @ConfigSerializable
+    public static class DropConfig {
+        private String item;
+        private int minQuantity;
+        private int maxQuantity;
+
+        public DropConfig() { }
+
+        public DropConfig(String item, int minQuantity, int maxQuantity) {
+            this.item = item;
+            this.minQuantity = minQuantity;
+            this.maxQuantity = maxQuantity;
+        }
+
+        public String getItem() { return item; }
+        public int getMinQuantity() { return minQuantity; }
+        public int getMaxQuantity() { return maxQuantity; }
     }
 }

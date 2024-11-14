@@ -1,9 +1,7 @@
-package thingxII.vanillacrossover.AbilityEffects;
+package thingxII.vanillacrossover.Effects;
 
 import Core.PixelmonEntityTracker;
 import com.google.common.collect.Iterators;
-import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
-import com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.block.material.Material;
@@ -16,31 +14,33 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import thingxII.vanillacrossover.Config.DoubleGrowthConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Overgrow_DoubleCropGrowth {
-    private static final int MAX_RANGE = 5;
-
-    // TODO: Maybe we don't need a generalized Object to hold data? We don't need data in this case...
-    private static PixelmonEntityTracker<Boolean> tracker;
+public class DoubleCropGrowth {
+    private static List<PixelmonEntityTracker<Integer>> trackers = new ArrayList<>();
     private static final Random random = new Random();
-
-    // TODO: Configuration
-    private static final List<Ability> abilities = Arrays.asList(AbilityRegistry.OVERGROW.get());
 
     @SubscribeEvent
     public static void OnServerStarted(FMLServerStartedEvent event) {
-        tracker = new PixelmonEntityTracker<>(p -> abilities.contains(p.getPokemon().getAbility()));
+        for (DoubleGrowthConfig.DoubleGrowthPokemonConfiguration config : ConfigProxy.getDoubleGrowthConfig().getConfigs()) {
+            PixelmonEntityTracker<Integer> newTracker = new PixelmonEntityTracker<>(config.getPredicate().asPredicate());
+            newTracker.SetDefaultDataSetter(e -> config.getRange());
+            trackers.add(newTracker);
+        }
     }
 
     @SubscribeEvent
     static void OnPlantGrowth(BlockEvent.CropGrowEvent.Post event) {
-        boolean foundNearbyMon = Iterators.any(tracker.getTrackedEntities().iterator(), entity -> {
-            int dist = manhattanDistance(entity.blockPosition(), event.getPos());
-            return dist <= MAX_RANGE;
+        boolean foundNearbyMon = Iterators.any(trackers.iterator(), tracker -> {
+            return Iterators.any(tracker.getTrackedEntities().iterator(), entity -> {
+                int dist = manhattanDistance(entity.blockPosition(), event.getPos());
+                return dist <= tracker.GetEntityData(entity);
+            });
         });
 
         if (foundNearbyMon && event.getState().getBlock() instanceof CropsBlock) {

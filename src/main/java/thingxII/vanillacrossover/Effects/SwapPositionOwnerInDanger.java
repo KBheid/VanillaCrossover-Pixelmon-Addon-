@@ -1,4 +1,4 @@
-package thingxII.vanillacrossover.MoveEffects;
+package thingxII.vanillacrossover.Effects;
 
 import com.pixelmonmod.pixelmon.api.battles.attack.AttackRegistry;
 import com.pixelmonmod.pixelmon.battles.attacks.Attack;
@@ -8,12 +8,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-import thingxII.vanillacrossover.PixelmonTrackerCooldown;
+import Core.PixelmonTrackerCooldown;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class SafetyTeleportEffect {
+public class SwapPositionOwnerInDanger {
     // 3 minutes
     private static final int TICKS_TO_ACTIVATE = 3;// * 60 * 20;
     private static ImmutableAttack attack = null;
@@ -40,7 +40,7 @@ public class SafetyTeleportEffect {
             false
             );
 
-        tracker.SetTickEvent(SafetyTeleportEffect::tick);
+        tracker.SetTickEvent(SwapPositionOwnerInDanger::tick);
     }
 
     private static void tick(PixelmonEntity entity) {
