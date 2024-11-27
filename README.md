@@ -10,6 +10,8 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - **Overgrow**: Pokemon that have this ability will double the growth stage of a crop when it successfully grows (at its natural rate). This applies to wild or owned Pokemon.
   - **Harvest**: Pokemon that have this ability will periodically harvest crops around them. By default, this applies only to owned Pokemon.
   - **Seed Sower**: Pokemon with this ability (ie. Arboliva) will plant seeds where they walk (do not need to pick any seeds up).
+  - **Cheek Pouch**: Pokemon with this ability will have a small storage of 9 slots. When they hold an item, their cheeks will be a bit puffier.
+    - *Note: The puffier cheek palette swap is only currently implemented for Skwovet, but will be added for all pokemon that can have this ability normally, as well as for Maushold 3 and 4.*
 - Move Effects:
   - **Ally Switch**: Pokemon that know this move will swap positions with the player if they fall into lava. (3 minute cooldown)
 - Status Effect Items
@@ -41,7 +43,6 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - This effect will be configurable as "*W* mon applies *X* effect every *Y* seconds for *Z* seconds"
 - Blaze ability provides periodic fuel to nearby furnaces.
 - Heatran will instant-smelt items in nearby furnaces occasionally.
-- Pokemon with the Cheek Pouch ability will have a very small storage (9 slots).
 - Some Pokemon that can be traded with to re-implement Piglin bartering.
 - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
 - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
