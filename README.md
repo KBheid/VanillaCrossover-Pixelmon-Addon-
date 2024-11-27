@@ -44,6 +44,7 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 - Some Pokemon that can be traded with to re-implement Piglin bartering.
 - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
 - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
+- ~Unified Pokemon stat config~
 - ~Unified configuration - allow Species, Ability, and Move specifiers for each effect. Ie. no hard-coded requirements. (This might be priority)~
 - ~Swap to yaml for config files, which should allow cleaner and more robust configuration (looking at you Periodic Drops! Also, pixelmon does this.)~
 - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
