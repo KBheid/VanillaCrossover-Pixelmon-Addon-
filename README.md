@@ -1,4 +1,5 @@
-# Vanilla Crossover
+![title](https://github.com/user-attachments/assets/d1a2af1b-e610-44d2-b71a-b2f8fe51a3b0) 
+
 ## What is it?
 In short, Vanilla Crossover is a mod that adds some 'vanilla' features to Pixelmon in the world. This mod aims to be highly configurable for the end user (you, the person using the mod!) It has some default functionality, which you can see below!
 
@@ -44,9 +45,9 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 - Some Pokemon that can be traded with to re-implement Piglin bartering.
 - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
 - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
-- ~Unified Pokemon stat config~
-- ~Unified configuration - allow Species, Ability, and Move specifiers for each effect. Ie. no hard-coded requirements. (This might be priority)~
-- ~Swap to yaml for config files, which should allow cleaner and more robust configuration (looking at you Periodic Drops! Also, pixelmon does this.)~
+- ~Unified Pokemon stat config~ (done)
+- ~Unified configuration - allow Species, Ability, and Move specifiers for each effect. Ie. no hard-coded requirements.~ (done)
+- ~Swap to yaml for config files, which should allow cleaner and more robust configuration~ (done)
 - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
 - AI Framework for controlling Pokemon entities' movement/actions.
 - The ability to leave Pokemon out while not in your party. (This will likely be a large task and may require the AI framework).
