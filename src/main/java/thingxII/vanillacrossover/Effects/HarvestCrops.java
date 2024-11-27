@@ -1,6 +1,5 @@
 package thingxII.vanillacrossover.Effects;
 
-import Core.PixelmonEntityPredicateBuilder;
 import Core.PixelmonTrackerCooldownWithData;
 import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;

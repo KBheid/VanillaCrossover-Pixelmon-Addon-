@@ -6,15 +6,14 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.ListNBT;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.ArrayUtils;
+import thingxII.vanillacrossover.Config.StorageConfig;
 import thingxII.vanillacrossover.VanillaCrossover;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -39,26 +38,19 @@ public class PlayerPokemonStorage {
                 e.printStackTrace();
             }
         }
-    }
-
-    @SubscribeEvent
-    static void onPlayerConnected(PlayerEvent.PlayerLoggedInEvent event) {
-        // Make sure we're on the server
-        if (event.getPlayer() instanceof ServerPlayerEntity) {
-            getStorageFor((ServerPlayerEntity) event.getPlayer());
-        }
+        cachedStorages.clear();
     }
 
     public boolean hasStorageForMon(Pokemon owner) {
         return pokemonStorages.containsKey(owner.getUUID());
     }
 
-    public PokemonStorage getOrCreateStorageForMon(Pokemon owner) {
+    public PokemonStorage getOrCreateStorageForMon(Pokemon owner, StorageConfig.EntityConfig foundEntityConfig) {
         if (pokemonStorages.containsKey(owner.getUUID())) {
             return pokemonStorages.get(owner.getUUID());
         }
 
-        PokemonStorage newStorage = new PokemonStorage(owner);
+        PokemonStorage newStorage = new PokemonStorage(owner, foundEntityConfig);
         pokemonStorages.put(owner.getUUID(), newStorage);
 
         return newStorage;
@@ -117,8 +109,8 @@ public class PlayerPokemonStorage {
 
             // Load the cached storage from NBT if it exists
             if (nbtFile.exists()) {
-                try (DataInputStream dataStream = new DataInputStream(Files.newInputStream(nbtFile.toPath()))) {
-                    CompoundNBT LoadedNBT = CompressedStreamTools.read(dataStream);
+                try {
+                    CompoundNBT LoadedNBT = CompressedStreamTools.read(nbtFile);
 
                     PlayerPokemonStorage dps = fromNBT(LoadedNBT);
                     cachedStorages.put(player.getUUID(), dps);

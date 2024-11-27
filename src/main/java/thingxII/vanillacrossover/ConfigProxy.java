@@ -1,9 +1,7 @@
 package thingxII.vanillacrossover;
 
 import com.pixelmonmod.pixelmon.api.config.api.yaml.YamlConfigFactory;
-import thingxII.vanillacrossover.Config.DoubleGrowthConfig;
-import thingxII.vanillacrossover.Config.HarvestEffectConfig;
-import thingxII.vanillacrossover.Config.PeriodicDroppingConfig;
+import thingxII.vanillacrossover.Config.*;
 
 import java.io.IOException;
 
@@ -11,6 +9,10 @@ public class ConfigProxy {
     private static HarvestEffectConfig harvestEffectConfig;
     private static PeriodicDroppingConfig periodicDroppingConfig;
     private static DoubleGrowthConfig doubleGrowthConfig;
+    private static StorageConfig storageConfig;
+    private static CreateAndPlantSeedConfig createAndPlantSeedConfig;
+    private static SwapPositionOwnerInDangerConfig swapPositionOwnerInDangerConfig;
+    private static BounceConfig bounceConfig;
 
     ConfigProxy() { }
 
@@ -19,6 +21,10 @@ public class ConfigProxy {
             harvestEffectConfig = YamlConfigFactory.getInstance(HarvestEffectConfig.class);
             periodicDroppingConfig = YamlConfigFactory.getInstance(PeriodicDroppingConfig.class);
             doubleGrowthConfig = YamlConfigFactory.getInstance(DoubleGrowthConfig.class);
+            storageConfig = YamlConfigFactory.getInstance(StorageConfig.class);
+            createAndPlantSeedConfig = YamlConfigFactory.getInstance(CreateAndPlantSeedConfig.class);
+            swapPositionOwnerInDangerConfig = YamlConfigFactory.getInstance(SwapPositionOwnerInDangerConfig.class);
+            bounceConfig = YamlConfigFactory.getInstance(BounceConfig.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,4 +33,8 @@ public class ConfigProxy {
     public static HarvestEffectConfig getHarvestEffectConfig() { return harvestEffectConfig; }
     public static PeriodicDroppingConfig getPeriodicDroppingConfig() { return periodicDroppingConfig; }
     public static DoubleGrowthConfig getDoubleGrowthConfig() { return doubleGrowthConfig; }
+    public static StorageConfig getStorageConfig() { return storageConfig; }
+    public static CreateAndPlantSeedConfig getCreateAndPlantSeedConfig() { return createAndPlantSeedConfig; }
+    public static SwapPositionOwnerInDangerConfig getSwapPositionOwnerInDangerConfig() { return swapPositionOwnerInDangerConfig; }
+    public static BounceConfig getBounceConfig() { return bounceConfig; }
 }

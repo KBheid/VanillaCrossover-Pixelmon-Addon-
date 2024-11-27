@@ -1,19 +1,13 @@
 package thingxII.vanillacrossover.Effects.StoragePokemon;
 
-import com.pixelmonmod.api.registry.RegistryValue;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
-import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -23,25 +17,16 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.network.NetworkHooks;
-import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
+import thingxII.vanillacrossover.Config.StorageConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 import thingxII.vanillacrossover.VanillaCrossover;
 
-import java.util.ArrayList;
-
 public class StoragePokemonInteraction {
-    private final static ArrayList<RegistryValue<Species>> ChestableSpecies = new ArrayList<>();
+    private static StorageConfig config;
 
     @SubscribeEvent
     public static void onServerStarted(FMLServerStartedEvent event) {
-        for (String species : ChestablePokemonConfig.chestableSpecies) {
-            RegistryValue<Species> foundSpecies = PixelmonSpecies.fromName(species.toUpperCase());
-            if (foundSpecies != null && foundSpecies.getValue().isPresent()) {
-                ChestableSpecies.add(foundSpecies);
-            }
-            else {
-                VanillaCrossover.LOGGER.error("Cannot resolve a Chestable Species (malformed config file): " + species);
-            }
-        }
+        config = ConfigProxy.getStorageConfig();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -72,19 +57,18 @@ public class StoragePokemonInteraction {
             return;
         }
 
-        boolean foundChestableSpecies = false;
-        // Look for a chestable species
-        for (RegistryValue<Species> checkedSpecies : ChestableSpecies) {
-            if (checkedSpecies.getValue().isPresent()) {
-                if (pokemon.getSpecies().is(checkedSpecies.getValue().get())) {
-                    // We found it, woo
-                    foundChestableSpecies = true;
-                    break;
-                }
+        StorageConfig.EntityConfig foundEntityConfig = null;
+        boolean foundChestableEntity = false;
+        // Look for a chestable entities
+        for (StorageConfig.EntityConfig entityConfig : config.getConfigs()) {
+            if (entityConfig.getPredicate().asPredicate().test(pixelmonEntity)) {
+                foundChestableEntity = true;
+                foundEntityConfig = entityConfig;
+                break;
             }
         }
 
-        if (!foundChestableSpecies) {
+        if (!foundChestableEntity) {
             return;
         }
 
@@ -92,17 +76,7 @@ public class StoragePokemonInteraction {
         PlayerPokemonStorage allPokemonStorageForPlayer = PlayerPokemonStorage.getStorageFor(player);
 
         if (!allPokemonStorageForPlayer.hasStorageForMon(pokemon)) {
-            if (itemStack.getItem() != Items.CHEST) {
-                return;
-            }
-
-            // If the storage was just created, we need a chest
-            if (!(item instanceof BlockItem)) {
-                return;
-            }
-
-            BlockItem blockItem = (BlockItem) item;
-            if (!(blockItem.getBlock().is(Blocks.CHEST))) {
+            if (itemStack.getItem() != foundEntityConfig.getItem()) {
                 return;
             }
 
@@ -118,7 +92,7 @@ public class StoragePokemonInteraction {
             trySetPalette(pokemon);
 
             // TODO: Kinda ugly, but we're just creating the storage here...
-            allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon);
+            allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon, foundEntityConfig);
 
             // This is the sole action that can occur
             event.setCanceled(true);
@@ -130,11 +104,11 @@ public class StoragePokemonInteraction {
         }
 
         // TODO: Similarly, this is just getting it, no creation happens here
-        PokemonStorage selectedPokemonStorage = allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon);
+        PokemonStorage selectedPokemonStorage = allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon, foundEntityConfig);
         selectedPokemonStorage.updateReference(pokemon);
 
         // Recalculate size. If the size got smaller, we might need to spill some items:
-        selectedPokemonStorage.calculateSize();
+        selectedPokemonStorage.calculateSize(foundEntityConfig);
         selectedPokemonStorage.ExecutePendingSpillAt(player.level, pixelmonEntity.getX(), pixelmonEntity.getY(), pixelmonEntity.getZ());
 
         open(player, selectedPokemonStorage);
@@ -156,10 +130,10 @@ public class StoragePokemonInteraction {
 
         String paletteToTry;
         if (!pokemon.getPalette().getName().equals("none")) {
-            paletteToTry = ChestablePokemonConfig.palettePrefix + "_" + pokemon.getPalette().getName();
+            paletteToTry = ConfigProxy.getStorageConfig().getPalettePrefix() + "_" + pokemon.getPalette().getName();
         }
         else {
-            paletteToTry = ChestablePokemonConfig.palettePrefix;
+            paletteToTry = ConfigProxy.getStorageConfig().getPalettePrefix();
         }
 
         if (pokemon.hasPalette(paletteToTry)) {

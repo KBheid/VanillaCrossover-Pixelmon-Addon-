@@ -1,6 +1,6 @@
 package thingxII.vanillacrossover.Config;
 
-import Core.PredicateConfigSerializer;
+import Core.Config.PredicateConfig;
 import com.pixelmonmod.pixelmon.api.config.api.data.ConfigPath;
 import com.pixelmonmod.pixelmon.api.config.api.yaml.AbstractYamlConfig;
 import info.pixelmon.repack.org.spongepowered.objectmapping.ConfigSerializable;
@@ -20,12 +20,12 @@ public class HarvestEffectConfig extends AbstractYamlConfig {
 
     @ConfigSerializable
     public static class HarvestPokemonConfiguration {
-        private PredicateConfigSerializer predicate = new PredicateConfigSerializer(new ArrayList<>(), Collections.singletonList("Harvest"), new ArrayList<>());
+        private PredicateConfig predicate = new PredicateConfig(new ArrayList<>(), Collections.singletonList("Harvest"), new ArrayList<>());
         private int cooldown = 20;
 
         public HarvestPokemonConfiguration() { }
 
-        public PredicateConfigSerializer getPredicate() { return predicate; }
+        public PredicateConfig getPredicate() { return predicate; }
         public int getCooldown() { return cooldown; }
     }
 }

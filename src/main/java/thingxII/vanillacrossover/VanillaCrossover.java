@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import thingxII.vanillacrossover.Effects.DoubleCropGrowth;
 import thingxII.vanillacrossover.Effects.HarvestCrops;
 import thingxII.vanillacrossover.Effects.CreateAndPlantSeeds;
-import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.BlazePowderBurn;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.PufferPoison;
@@ -32,14 +31,12 @@ public class VanillaCrossover {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public VanillaCrossover() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ChestablePokemonConfig.SPEC, "vanillacrossover/ChestablePokemon.toml");
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, StatusItemsConfig.SPEC, "vanillacrossover/StatusItems.toml");
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(PixelmonEntityTracker.class);
-        // Pixelmon.EVENT_BUS.register(PixelmonEntityTracker.class);
         bus.addListener(this::commonSetup);
 
         bus.register(ContainerRegistration.class);
@@ -49,16 +46,13 @@ public class VanillaCrossover {
     public void commonSetup(FMLCommonSetupEvent event) {
         ConfigProxy.reload();
 
-        if (ChestablePokemonConfig.allowChestablePokemon && !ChestablePokemonConfig.chestableSpecies.isEmpty()) {
-            MinecraftForge.EVENT_BUS.register(PlayerPokemonStorage.class);
-            MinecraftForge.EVENT_BUS.register(StoragePokemonInteraction.class);
-        }
-
         if (StatusItemsConfig.allowStatusItems) {
             MinecraftForge.EVENT_BUS.register(BlazePowderBurn.class);
             MinecraftForge.EVENT_BUS.register(PufferPoison.class);
         }
 
+        MinecraftForge.EVENT_BUS.register(PlayerPokemonStorage.class);
+        MinecraftForge.EVENT_BUS.register(StoragePokemonInteraction.class);
         MinecraftForge.EVENT_BUS.register(PeriodicDropping.class);
         MinecraftForge.EVENT_BUS.register(DoubleCropGrowth.class);
         MinecraftForge.EVENT_BUS.register(HarvestCrops.class);

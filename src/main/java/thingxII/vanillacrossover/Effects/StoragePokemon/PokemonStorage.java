@@ -1,7 +1,6 @@
 package thingxII.vanillacrossover.Effects.StoragePokemon;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -9,8 +8,8 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import thingxII.vanillacrossover.Config.ChestablePokemonConfig;
 import Core.InventoryHelper;
+import thingxII.vanillacrossover.Config.StorageConfig;
 import thingxII.vanillacrossover.InventoryStorageData;
 import thingxII.vanillacrossover.StorageType;
 
@@ -33,10 +32,10 @@ public class PokemonStorage {
 
     private PokemonStorage() { }
 
-    PokemonStorage(Pokemon owner) {
+    PokemonStorage(Pokemon owner, StorageConfig.EntityConfig foundEntityConfig) {
         referencedMon = owner;
         uuid = owner.getUUID();
-        calculateSize();
+        calculateSize(foundEntityConfig);
 
         inventory = new Inventory(data.slotCount);
     }
@@ -45,95 +44,13 @@ public class PokemonStorage {
         referencedMon = newOwner;
     }
 
-    public void calculateSize() {
-        boolean anyMaxxed = false;
-
-        // base size is one
-        int size = 1;
-
-        // config error correction
-        int evListLength = Math.min(Math.min(ChestablePokemonConfig.chestSizeEvs.size(), ChestablePokemonConfig.chestSizeEvsValues.size()), 6);
-        int ivListLength = Math.min(Math.min(ChestablePokemonConfig.chestSizeIvs.size(), ChestablePokemonConfig.chestSizeIvsValues.size()), 6);
-
-        // Check EVs
-        // each EV can add +1
-        for (int statIndex = 0; statIndex < evListLength; statIndex++) {
-            boolean shouldCheck = ChestablePokemonConfig.chestSizeEvs.get(statIndex);
-            if (!shouldCheck) {
-                continue;
-            }
-
-            BattleStatsType EVStat = BattleStatsType.EV_IV_STATS[statIndex];
-            int EVValue = referencedMon.getEVs().getStat(EVStat);
-
-            if (EVValue >= ChestablePokemonConfig.chestSizeEvsValues.get(statIndex)) {
-                size++;
-            }
-            if (EVValue >= 252 && ChestablePokemonConfig.maxEVsIncreases) {
-                anyMaxxed = true;
-            }
-        }
-
-        // Check IVs
-        // each IV can add +1
-        for (int statIndex = 0; statIndex < ivListLength; statIndex++) {
-            boolean shouldCheck = ChestablePokemonConfig.chestSizeIvs.get(statIndex);
-            if (!shouldCheck) {
-                continue;
-            }
-
-            BattleStatsType IVStat = BattleStatsType.EV_IV_STATS[statIndex];
-            int IVValue = referencedMon.getIVs().getStat(IVStat);
-
-            if (IVValue >= ChestablePokemonConfig.chestSizeIvsValues.get(statIndex)) {
-                size++;
-            }
-            if (IVValue >= 252 && ChestablePokemonConfig.maxIVsIncreases) {
-                anyMaxxed = true;
-            }
-        }
-
-        // Check dynamax
-        // Can add +1
-        if (ChestablePokemonConfig.dynamaxIncreases) {
-            int dynamaxLevel = referencedMon.getDynamaxLevel();
-            if (dynamaxLevel >= ChestablePokemonConfig.dynamaxValue) {
-                size++;
-            }
-            if (dynamaxLevel >= 10 && ChestablePokemonConfig.maxDynamaxIncreases) {
-                anyMaxxed = true;
-            }
-        }
-
-        // Check Growth
-        // Can add +1 or more, depending on settings
-        if (ChestablePokemonConfig.growthIncreases) {
-            int pokemonSize = referencedMon.getGrowth().ordinal();
-
-            if (ChestablePokemonConfig.growthDiffIncreases && pokemonSize > ChestablePokemonConfig.growthReferenceValue) {
-                size += pokemonSize - ChestablePokemonConfig.growthReferenceValue;
-            }
-            else {
-                if (pokemonSize >= ChestablePokemonConfig.growthReferenceValue) {
-                    size++;
-                }
-            }
-
-            if (pokemonSize == 8 && ChestablePokemonConfig.maxGrowthIncreases) {
-                anyMaxxed = true;
-            }
-        }
-
-        // and +1 for any of those maxxed
-        if (anyMaxxed) {
-            size++;
-        }
+    public void calculateSize(StorageConfig.EntityConfig foundEntityConfig) {
+        int size = foundEntityConfig.getSizeCalculation().getForPokemon(referencedMon);
 
         // Cap to 5
         size = MathHelper.clamp(size, 1, 5);
 
         switch (size) {
-
             case 2:
                 data = InventoryStorageData.Data.get(StorageType.SMALL);
                 storageType = StorageType.SMALL;

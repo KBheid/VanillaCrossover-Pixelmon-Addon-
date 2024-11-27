@@ -1,8 +1,6 @@
 package thingxII.vanillacrossover.Effects;
 
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
-import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
-import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -16,19 +14,24 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import thingxII.vanillacrossover.Config.BounceConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class BounceOnRightClick {
     private static final List<ServerPlayerEntity> playersWithNegatedFall = new ArrayList<>();
-    private static Species ALLOWED_SPECIES = null;
-    private static final float UPWARD_BOOST = 2;
+    private static HashMap<Predicate<PixelmonEntity>, BounceConfig.EntityConfig> configs = new HashMap<>();
 
     @SubscribeEvent
     public static void onServerStarted(FMLServerStartedEvent event) {
-        if (PixelmonSpecies.SPOINK.getValue().isPresent()) {
-            ALLOWED_SPECIES = PixelmonSpecies.SPOINK.getValue().get();
+        // Evaluate our predicates ASAP so we're not constructing them every time
+        List<BounceConfig.EntityConfig> foundConfigs = ConfigProxy.getBounceConfig().getConfigs();
+        for (BounceConfig.EntityConfig config : foundConfigs) {
+            configs.put(config.getPredicate().asPredicate(), config);
         }
     }
 
@@ -59,21 +62,33 @@ public class BounceOnRightClick {
             return;
         }
 
-        if (pokemon.getSpecies() != ALLOWED_SPECIES) {
-            return;
-        }
+        for (Predicate<PixelmonEntity> predicate : configs.keySet()) {
+            if (!predicate.test(pixelmonEntity)) {
+                continue;
+            }
 
-        // Only allow the bounce effect if the player is not already moving upward (so they can't spam it very, very quickly)
-        if (player.getDeltaMovement().y > 0.5f) {
-            return;
-        }
+            BounceConfig.EntityConfig config = configs.get(predicate);
 
-        // TODO:
-        // 0.75 - 2.0 for boost, determined by sp. attack or something
-        Vector3d prevMovement = player.getDeltaMovement();
-        player.setDeltaMovement(prevMovement.add(0, UPWARD_BOOST, 0));
-        player.hurtMarked = true;
-        playersWithNegatedFall.add(player);
+            // Only allow the bounce effect if the player is not already moving upward (so they can't spam it very, very quickly)
+            Vector3d prevMovement = player.getDeltaMovement();
+            if (prevMovement.y > 0.5f) {
+                return;
+            }
+
+            float statScalar = config.getScalarCalculation().getForEntity(pixelmonEntity);
+            float forwardForce = (statScalar * (config.getMaxForwardForce() - config.getMinForwardForce())) + config.getMinForwardForce();
+            float upwardForce = (statScalar * (config.getMaxUpwardForce() - config.getMinUpwardForce())) + config.getMinUpwardForce();
+
+            Vector3d playerForward = player.getForward();
+            double xForce = playerForward.x * forwardForce;
+            double zForce = playerForward.z * forwardForce;
+
+            player.setDeltaMovement(prevMovement.add(xForce, upwardForce, zForce));
+            player.hurtMarked = true;
+            playersWithNegatedFall.add(player);
+
+            break;
+        }
     }
 
     @SubscribeEvent

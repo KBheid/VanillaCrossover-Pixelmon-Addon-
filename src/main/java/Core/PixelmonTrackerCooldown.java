@@ -3,7 +3,7 @@ package Core;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.HashMap;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -13,6 +13,7 @@ public class PixelmonTrackerCooldown extends PixelmonEntityTracker<Integer> {
 
     private Consumer<PixelmonEntity> onAdd = null;
     private Consumer<PixelmonEntity> onTick = null;
+    private BiFunction<PixelmonEntity, PixelmonTrackerCooldown, Void> onTickWithTracker = null;
     private Consumer<PixelmonEntity> onCooldownElapsed = null;
 
     private final boolean resetCooldown;
@@ -45,6 +46,10 @@ public class PixelmonTrackerCooldown extends PixelmonEntityTracker<Integer> {
 
         if (onTick != null) {
             onTick.accept(entity);
+        }
+
+        if (onTickWithTracker != null) {
+            onTickWithTracker.apply(entity, this);
         }
 
         if (cooldown <= 0) {
@@ -89,4 +94,6 @@ public class PixelmonTrackerCooldown extends PixelmonEntityTracker<Integer> {
     public void ClearTickEvent() {
         onTick = null;
     }
+
+    public void SetTickWithTrackerEvent(BiFunction<PixelmonEntity, PixelmonTrackerCooldown, Void> tick) { onTickWithTracker = tick; }
 }

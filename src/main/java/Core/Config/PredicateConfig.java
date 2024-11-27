@@ -1,5 +1,6 @@
-package Core;
+package Core.Config;
 
+import Core.PixelmonEntityPredicateBuilder;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import info.pixelmon.repack.org.spongepowered.objectmapping.ConfigSerializable;
 
@@ -7,14 +8,14 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @ConfigSerializable
-public class PredicateConfigSerializer {
+public class PredicateConfig {
     private List<String> acceptedMoves;
     private List<String> acceptedAbilities;
     private List<String> acceptedSpecies;
 
-    public PredicateConfigSerializer() {}
+    public PredicateConfig() {}
 
-    public PredicateConfigSerializer(List<String> moves, List<String> abilities, List<String> species) {
+    public PredicateConfig(List<String> moves, List<String> abilities, List<String> species) {
         acceptedMoves = moves;
         acceptedAbilities = abilities;
         acceptedSpecies = species;

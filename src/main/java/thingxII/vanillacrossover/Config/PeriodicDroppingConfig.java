@@ -1,6 +1,6 @@
 package thingxII.vanillacrossover.Config;
 
-import Core.PredicateConfigSerializer;
+import Core.Config.PredicateConfig;
 import com.pixelmonmod.pixelmon.api.config.api.data.ConfigPath;
 import com.pixelmonmod.pixelmon.api.config.api.yaml.AbstractYamlConfig;
 import info.pixelmon.repack.org.spongepowered.objectmapping.ConfigSerializable;
@@ -19,7 +19,7 @@ public class PeriodicDroppingConfig extends AbstractYamlConfig {
 
     PeriodicDroppingConfig() {
         config = Arrays.asList(
-                new SpecConfig(new PredicateConfigSerializer(new ArrayList<>(), new ArrayList<>(), Arrays.asList("TRUBBISH")),
+                new SpecConfig(new PredicateConfig(new ArrayList<>(), new ArrayList<>(), Arrays.asList("TRUBBISH")),
                         100,
                         Arrays.asList(
                                 new DropConfig("minecraft:glass_bottle", 1, 2),
@@ -59,7 +59,7 @@ public class PeriodicDroppingConfig extends AbstractYamlConfig {
                                 new DropConfig("minecraft:fermented_spider_eye", 1, 8)
                         )
                 ),
-                new SpecConfig(new PredicateConfigSerializer(new ArrayList<>(), new ArrayList<>(), Arrays.asList("GARBODOR")),
+                new SpecConfig(new PredicateConfig(new ArrayList<>(), new ArrayList<>(), Arrays.asList("GARBODOR")),
                         60,
                         Arrays.asList(
                                 new DropConfig("minecraft:glass_bottle", 1, 2),
@@ -109,19 +109,19 @@ public class PeriodicDroppingConfig extends AbstractYamlConfig {
 
     @ConfigSerializable
     public static class SpecConfig {
-        private PredicateConfigSerializer predicate;
+        private PredicateConfig predicate;
         private int cooldown;
         private List<DropConfig> drops;
 
         public SpecConfig() { }
 
-        public SpecConfig(PredicateConfigSerializer predicate, int cooldown, List<DropConfig> drops) {
+        public SpecConfig(PredicateConfig predicate, int cooldown, List<DropConfig> drops) {
             this.predicate = predicate;
             this.cooldown = cooldown;
             this.drops = drops;
         }
 
-        public PredicateConfigSerializer getPredicate() { return predicate; }
+        public PredicateConfig getPredicate() { return predicate; }
         public int getCooldown() { return cooldown; }
         public List<DropConfig> getDrops() { return drops; }
 

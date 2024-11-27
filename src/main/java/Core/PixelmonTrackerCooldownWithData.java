@@ -3,7 +3,6 @@ package Core;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.HashMap;
 import java.util.function.*;
 
 public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<PixelmonTrackerCooldownWithData<T>.CustomDataWithCooldown> {
@@ -12,6 +11,7 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
 
     private Consumer<PixelmonEntity> onAdd = null;
     private Consumer<PixelmonEntity> onTick = null;
+    private BiFunction<PixelmonEntity, PixelmonTrackerCooldownWithData<T>, Void> onTickWithTracker = null;
     private BiFunction<PixelmonEntity, T, Void> onCooldownElapsed = null;
     private Function<PixelmonEntity, Integer> cooldownGetter;
 
@@ -45,6 +45,10 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
 
         if (onTick != null) {
             onTick.accept(entity);
+        }
+
+        if (onTickWithTracker != null) {
+            onTickWithTracker.apply(entity, this);
         }
 
         if (cooldown <= 0) {
@@ -84,6 +88,9 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
     public void SetTickEvent(Consumer<PixelmonEntity> tick) { onTick = tick; }
     @Override
     public void ClearTickEvent() { onTick = null; }
+
+    public void SetTickWithTrackerEvent(BiFunction<PixelmonEntity, PixelmonTrackerCooldownWithData<T>, Void> tick) { onTickWithTracker = tick; }
+    public void ClearTickWithTrackerEvent() { onTickWithTracker = null; }
 
     public T GetCustomData(PixelmonEntity entity) { return trackedEntities.get(entity).data; }
     public void SetCustomData(PixelmonEntity entity, T newData) { trackedEntities.get(entity).data = newData; }

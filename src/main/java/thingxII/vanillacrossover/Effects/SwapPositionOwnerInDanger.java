@@ -1,51 +1,34 @@
 package thingxII.vanillacrossover.Effects;
 
-import com.pixelmonmod.pixelmon.api.battles.attack.AttackRegistry;
-import com.pixelmonmod.pixelmon.battles.attacks.Attack;
-import com.pixelmonmod.pixelmon.battles.attacks.ImmutableAttack;
+import Core.PixelmonTrackerCooldown;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-import Core.PixelmonTrackerCooldown;
+import thingxII.vanillacrossover.Config.SwapPositionOwnerInDangerConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SwapPositionOwnerInDanger {
-    // 3 minutes
-    private static final int TICKS_TO_ACTIVATE = 3;// * 60 * 20;
-    private static ImmutableAttack attack = null;
 
-    private static PixelmonTrackerCooldown tracker;
-
-    // TODO: Configuration
-    private static final List<Attack> moves = Arrays.asList();
+    // Boolean data tracks whether we are currently on cooldown or not
+    private static List<PixelmonTrackerCooldown> trackers = new ArrayList<>();
 
     @SubscribeEvent
     public static void OnServerStarted(FMLServerStartedEvent event) {
-        attack = AttackRegistry.ALLY_SWITCH.get();
+        for (SwapPositionOwnerInDangerConfig.EntityConfig config : ConfigProxy.getSwapPositionOwnerInDangerConfig().getConfigs()) {
+            PixelmonTrackerCooldown newTracker = new PixelmonTrackerCooldown(config.getPredicate().asPredicate(), config.getCooldown(), false);
 
-        tracker = new PixelmonTrackerCooldown(
-            p -> {
-                for (Attack a : p.getPokemon().getMoveset().attacks) {
-                    if (a != null && a.getActualMove().equals(attack)) {
-                        return true;
-                    }
-                }
-                return false;
-            },
-            TICKS_TO_ACTIVATE,
-            false
-            );
-
-        tracker.SetTickEvent(SwapPositionOwnerInDanger::tick);
+            newTracker.SetTickWithTrackerEvent(SwapPositionOwnerInDanger::tick);
+            trackers.add(newTracker);
+        }
     }
 
-    private static void tick(PixelmonEntity entity) {
+    private static Void tick(PixelmonEntity entity, PixelmonTrackerCooldown tracker) {
         if (tracker.CheckCooldown(entity)) {
-
             ServerPlayerEntity player = entity.getPokemon().getOwnerPlayer();
             if (player != null) {
                 if (player.isInLava()) {
@@ -57,5 +40,6 @@ public class SwapPositionOwnerInDanger {
                 }
             }
         }
+        return null;
     }
 }

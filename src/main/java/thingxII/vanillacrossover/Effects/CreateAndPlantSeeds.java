@@ -1,36 +1,37 @@
 package thingxII.vanillacrossover.Effects;
 
-import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
-import com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry;
+import Core.PixelmonTrackerCooldownWithData;
 import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
-import Core.PixelmonTrackerCooldown;
+import thingxII.vanillacrossover.Config.CreateAndPlantSeedConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateAndPlantSeeds {
-    private static final int MAX_RANGE = 1;
     private static final int TICKS_TO_ACTIVATE = 20;
 
     // Tracker data holds ticks until next activation
-    private static PixelmonTrackerCooldown tracker;
-
-    // TODO: Configuration
-    private static final List<Ability> abilities = Arrays.asList(AbilityRegistry.SEED_SOWER.get());
+    private static List<PixelmonTrackerCooldownWithData<Integer>> trackers = new ArrayList<>();
 
     @SubscribeEvent
     public static void OnServerStarted(FMLServerStartedEvent event) {
-        tracker = new PixelmonTrackerCooldown(p -> abilities.contains(p.getPokemon().getAbility()), TICKS_TO_ACTIVATE, true);
-        tracker.SetCooldownComplete(CreateAndPlantSeeds::plantUnderFeet);
+        for (CreateAndPlantSeedConfig.EntityConfig config : ConfigProxy.getCreateAndPlantSeedConfig().getConfigs()) {
+            PixelmonTrackerCooldownWithData<Integer> newTracker = new PixelmonTrackerCooldownWithData<>(config.getPredicate().asPredicate(), TICKS_TO_ACTIVATE, true);
+            newTracker.SetDefaultCustomData(e -> config.getRange());
+            newTracker.SetCooldownComplete(CreateAndPlantSeeds::plantUnderFeet);
+
+            trackers.add(newTracker);
+        }
     }
 
-    private static void plantUnderFeet(PixelmonEntity entity) {
-        Iterable<BlockPos> blockPositions = BlockPos.withinManhattan(entity.blockPosition(), MAX_RANGE, MAX_RANGE, 2);
+    private static Void plantUnderFeet(PixelmonEntity entity, Integer range) {
+        Iterable<BlockPos> blockPositions = BlockPos.withinManhattan(entity.blockPosition(), range, range, 2);
         for (BlockPos blockPos : blockPositions) {
             BlockState airAboveFarmlandState = entity.level.getBlockState(blockPos);
             BlockState farmlandState = entity.level.getBlockState(blockPos.below());
@@ -39,5 +40,7 @@ public class CreateAndPlantSeeds {
                 entity.level.setBlock(blockPos, newCropState, 2);
             }
         }
+
+        return null;
     }
 }

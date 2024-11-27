@@ -7,6 +7,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityLeaveWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,11 @@ public class PixelmonEntityTracker<T> {
     private boolean tickingValidator = false;
 
     private static final List<PixelmonEntityTracker> activeTrackers = new ArrayList<>();
+
+    @SubscribeEvent
+    public static void OnServerStopped(FMLServerStoppingEvent event) {
+        activeTrackers.clear();
+    }
 
     @SubscribeEvent
     public static void OnEntitySpawned(EntityJoinWorldEvent event) {
