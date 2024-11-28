@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "vanillacrossover.refmap.json",
   "mixins": [
+    "Patch_FurnaceDataAccessor"
   ],
   "client": [
   ],

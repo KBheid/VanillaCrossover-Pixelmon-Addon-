@@ -15,7 +15,7 @@ public class StatScalarConfig {
 
     private PixelmonStatConfig otherStats;
 
-    StatScalarConfig() { }
+    public StatScalarConfig() { }
     public StatScalarConfig(float lowerBound, float upperBound, PokemonStatConfig evs, PokemonStatConfig ivs, PixelmonStatConfig otherStats) {
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -23,6 +23,9 @@ public class StatScalarConfig {
         this.ivs = ivs;
         this.otherStats = otherStats;
     }
+
+    public float getLowerBound() { return lowerBound; }
+    public float getUpperBound() { return upperBound; }
 
     public float getForEntity(PixelmonEntity entity) {
         Pokemon pokemon = entity.getPokemon();

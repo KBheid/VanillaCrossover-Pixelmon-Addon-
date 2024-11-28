@@ -13,7 +13,8 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
     private Consumer<PixelmonEntity> onTick = null;
     private BiFunction<PixelmonEntity, PixelmonTrackerCooldownWithData<T>, Void> onTickWithTracker = null;
     private BiFunction<PixelmonEntity, T, Void> onCooldownElapsed = null;
-    private Function<PixelmonEntity, Integer> cooldownGetter;
+    private Function<PixelmonEntity, Integer> cooldownGetter = null;
+    private BiFunction<PixelmonEntity, T, Integer> customCooldownGetter = null;
 
     private final boolean resetCooldown;
 
@@ -57,7 +58,12 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
             }
 
             if (resetCooldown) {
-                cooldown = cooldownGetter.apply(entity);
+                if (customCooldownGetter != null) {
+                    cooldown = customCooldownGetter.apply(entity, trackedEntities.get(entity).data);
+                }
+                else {
+                    cooldown = cooldownGetter.apply(entity);
+                }
             }
         }
 
@@ -78,6 +84,7 @@ public class PixelmonTrackerCooldownWithData<T> extends PixelmonEntityTracker<Pi
         getDefaultData = e -> new CustomDataWithCooldown(function.apply(e), defaultCooldown);
     }
     public void SetCooldownFunction(Function<PixelmonEntity, Integer> function) { cooldownGetter = function; }
+    public void SetCooldownWithDataFunction(BiFunction<PixelmonEntity, T, Integer> function) { customCooldownGetter = function; }
 
     @Override
     public void SetAddEvent(Consumer<PixelmonEntity> added) { onAdd = added; }

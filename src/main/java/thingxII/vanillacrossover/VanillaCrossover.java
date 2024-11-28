@@ -56,6 +56,7 @@ public class VanillaCrossover {
         MinecraftForge.EVENT_BUS.register(BounceOnRightClick.class);
         MinecraftForge.EVENT_BUS.register(SwapPositionOwnerInDanger.class);
         MinecraftForge.EVENT_BUS.register(ApplyPeriodicEffect.class);
+        MinecraftForge.EVENT_BUS.register(PowerFurnace.class);
     }
 
 }
