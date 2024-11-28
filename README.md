@@ -36,21 +36,21 @@ If you install the mod and run it as-is out of the box, you'll have access to th
 **TODO**
 
 ## Future Features (ordered by difficulty to implement):
-- Snorlax can act as a sleeping bag, allowing the player to sleep anywhere (thus healing all of their mons and turning night to day). Should not set their spawn point.
-- Pokemon with the Seed Bomb move will pick up seeds/carrots/etc. near them and plant them nearby (if able).
-- Sandshrew/Sandslash apply a large mining speed bonus to nearby players if the Pokemon is standing on Sand or Sandstone. (Haste beacon effect, maybe Haste 3 but testing needs to be done).
-  - This effect will be configurable as "Apply *X* effect if *Y* mon is on *Z* block"
-- Machoke/Machamp will apply a periodic boost to mining speed, haste effect (say a 30 second buff once every couple minutes, for reference but undecided).
-  - This effect will be configurable as "*W* mon applies *X* effect every *Y* seconds for *Z* seconds" 
-- Heatran will instant-smelt items in nearby furnaces occasionally.
-- Some Pokemon that can be traded with to re-implement Piglin bartering.
-- Add some cosmetic blocks.
-- Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
-- Camerupt works as a (slow? but) mobile furnace with infinite fuel.
-- When the player is flying (with elytra or on a pokemon) any flying Pokemon from their party that are out will fly in a V pattern with the player at the front. (Require AI framework)
-- Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
-- AI Framework for controlling Pokemon entities' movement/actions.
-- The ability to leave Pokemon out while not in your party. (This will likely be a large task and may require the AI framework).
+  - Snorlax can act as a sleeping bag, allowing the player to sleep anywhere (thus healing all of their mons and turning night to day). Should not set their spawn point.
+  - Pokemon with the Seed Bomb move will pick up seeds/carrots/etc. near them and plant them nearby (if able).
+  - Sandshrew/Sandslash apply a large mining speed bonus to nearby players if the Pokemon is standing on Sand or Sandstone. (Haste beacon effect, maybe Haste 3 but testing needs to be done).
+    - This effect will be configurable as "Apply *X* effect if *Y* mon is on *Z* block"
+  - Machoke/Machamp will apply a periodic boost to mining speed, haste effect (say a 30 second buff once every couple minutes, for reference but undecided).
+    - This effect will be configurable as "*W* mon applies *X* effect every *Y* seconds for *Z* seconds" 
+  - Heatran will instant-smelt items in nearby furnaces occasionally.
+  - Some Pokemon that can be traded with to re-implement Piglin bartering.
+  - Add some cosmetic blocks.
+  - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
+  - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
+  - When the player is flying (with elytra or on a pokemon) any flying Pokemon from their party that are out will fly in a V pattern with the player at the front. (Require AI framework)
+  - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
+  - AI Framework for controlling Pokemon entities' movement/actions.
+  - The ability to leave Pokemon out while not in your party. (This will likely be a large task and may require the AI framework).
 
 - Completed meta-tasks:
   - ~Unified Pokemon stat config~ (done)
