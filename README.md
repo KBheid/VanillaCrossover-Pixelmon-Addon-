@@ -1,4 +1,5 @@
-# Vanilla Crossover
+![title](https://github.com/user-attachments/assets/d1a2af1b-e610-44d2-b71a-b2f8fe51a3b0) 
+
 ## What is it?
 In short, Vanilla Crossover is a mod that adds some 'vanilla' features to Pixelmon in the world. This mod aims to be highly configurable for the end user (you, the person using the mod!) It has some default functionality, which you can see below!
 
@@ -9,6 +10,8 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - **Overgrow**: Pokemon that have this ability will double the growth stage of a crop when it successfully grows (at its natural rate). This applies to wild or owned Pokemon.
   - **Harvest**: Pokemon that have this ability will periodically harvest crops around them. By default, this applies only to owned Pokemon.
   - **Seed Sower**: Pokemon with this ability (ie. Arboliva) will plant seeds where they walk (do not need to pick any seeds up).
+  - **Cheek Pouch**: Pokemon with this ability will have a small storage of 9 slots. When they hold an item, their cheeks will be a bit puffier.
+    - *Note: The puffier cheek palette swap is only currently implemented for Skwovet, but will be added for all pokemon that can have this ability normally, as well as for Maushold 3 and 4.*
 - Move Effects:
   - **Ally Switch**: Pokemon that know this move will swap positions with the player if they fall into lava. (3 minute cooldown)
 - Status Effect Items
@@ -40,13 +43,12 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - This effect will be configurable as "*W* mon applies *X* effect every *Y* seconds for *Z* seconds"
 - Blaze ability provides periodic fuel to nearby furnaces.
 - Heatran will instant-smelt items in nearby furnaces occasionally.
-- Pokemon with the Cheek Pouch ability will have a very small storage (9 slots).
 - Some Pokemon that can be traded with to re-implement Piglin bartering.
 - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
 - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
-- ~Unified Pokemon stat config~
-- ~Unified configuration - allow Species, Ability, and Move specifiers for each effect. Ie. no hard-coded requirements. (This might be priority)~
-- ~Swap to yaml for config files, which should allow cleaner and more robust configuration (looking at you Periodic Drops! Also, pixelmon does this.)~
+- ~Unified Pokemon stat config~ (done)
+- ~Unified configuration - allow Species, Ability, and Move specifiers for each effect. Ie. no hard-coded requirements.~ (done)
+- ~Swap to yaml for config files, which should allow cleaner and more robust configuration~ (done)
 - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
 - AI Framework for controlling Pokemon entities' movement/actions.
 - The ability to leave Pokemon out while not in your party. (This will likely be a large task and may require the AI framework).
