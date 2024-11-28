@@ -2,6 +2,7 @@ package thingxII.vanillacrossover.Effects.StoragePokemon;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
@@ -66,6 +67,8 @@ public class PokemonStorageContainer extends Container {
     public boolean stillValid(PlayerEntity playerEntity) {
         return true;
     }
+
+
 
     @Override
     public ItemStack quickMoveStack(PlayerEntity p_82846_1_, int slotIndex) {

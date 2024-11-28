@@ -10,6 +10,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import Core.InventoryHelper;
 import thingxII.vanillacrossover.Config.StorageConfig;
+import thingxII.vanillacrossover.ConfigProxy;
 import thingxII.vanillacrossover.InventoryStorageData;
 import thingxII.vanillacrossover.StorageType;
 
@@ -23,6 +24,7 @@ public class PokemonStorage {
     public InventoryStorageData data = null;
 
     public UUID uuid;
+    StorageConfig.EntityConfig referencedConfig;
     public Pokemon referencedMon;
     public Inventory inventory;
 
@@ -40,8 +42,9 @@ public class PokemonStorage {
         inventory = new Inventory(data.slotCount);
     }
 
-    public void updateReference(Pokemon newOwner) {
+    public void updateReference(Pokemon newOwner, StorageConfig.EntityConfig config) {
         referencedMon = newOwner;
+        referencedConfig = config;
     }
 
     public void calculateSize(StorageConfig.EntityConfig foundEntityConfig) {
@@ -95,6 +98,47 @@ public class PokemonStorage {
         }
         else {
             return false;
+        }
+    }
+
+    // TODO: This is ugly - why does it live in storage
+    public void inventoryEvent() {
+        if (referencedConfig.getTogglePaletteWhenEmpty()) {
+            String prefix = ConfigProxy.getStorageConfig().getPalettePrefix();
+            boolean emptyInventory = inventory.isEmpty();
+
+            if (emptyInventory) {
+                // Try to set to non-storage palette
+                String oldPalette = referencedMon.getPalette().getName();
+                if (oldPalette.startsWith(prefix)) {
+                    String newPalette = oldPalette.substring(prefix.length());
+                    if (newPalette.startsWith("_")) {
+                        newPalette = newPalette.substring(1);
+                    }
+
+                    if (newPalette.isEmpty()) {
+                        newPalette = "none";
+                    }
+
+                    if (referencedMon.hasPalette(newPalette)) {
+                        referencedMon.setPalette(newPalette);
+                    }
+                }
+            }
+            else {
+                // Try to set to storage palette
+                String paletteToTry;
+                if (!referencedMon.getPalette().getName().equals("none")) {
+                    paletteToTry = prefix + "_" + referencedMon.getPalette().getName();
+                }
+                else {
+                    paletteToTry = prefix;
+                }
+
+                if (referencedMon.hasPalette(paletteToTry)) {
+                    referencedMon.setPalette(paletteToTry);
+                }
+            }
         }
     }
 

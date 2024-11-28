@@ -12,6 +12,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -75,7 +76,8 @@ public class StoragePokemonInteraction {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         PlayerPokemonStorage allPokemonStorageForPlayer = PlayerPokemonStorage.getStorageFor(player);
 
-        if (!allPokemonStorageForPlayer.hasStorageForMon(pokemon)) {
+        Item requiredItem = foundEntityConfig.getItem();
+        if (requiredItem != null && !allPokemonStorageForPlayer.hasStorageForMon(pokemon)) {
             if (itemStack.getItem() != foundEntityConfig.getItem()) {
                 return;
             }
@@ -91,7 +93,6 @@ public class StoragePokemonInteraction {
             // Try to set the pokemon's palette. May fail, and that's OK.
             trySetPalette(pokemon);
 
-            // TODO: Kinda ugly, but we're just creating the storage here...
             allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon, foundEntityConfig);
 
             // This is the sole action that can occur
@@ -103,9 +104,8 @@ public class StoragePokemonInteraction {
             return;
         }
 
-        // TODO: Similarly, this is just getting it, no creation happens here
         PokemonStorage selectedPokemonStorage = allPokemonStorageForPlayer.getOrCreateStorageForMon(pokemon, foundEntityConfig);
-        selectedPokemonStorage.updateReference(pokemon);
+        selectedPokemonStorage.updateReference(pokemon, foundEntityConfig);
 
         // Recalculate size. If the size got smaller, we might need to spill some items:
         selectedPokemonStorage.calculateSize(foundEntityConfig);
@@ -127,7 +127,6 @@ public class StoragePokemonInteraction {
     }
 
     private static void trySetPalette(Pokemon pokemon) {
-
         String paletteToTry;
         if (!pokemon.getPalette().getName().equals("none")) {
             paletteToTry = ConfigProxy.getStorageConfig().getPalettePrefix() + "_" + pokemon.getPalette().getName();
@@ -140,8 +139,18 @@ public class StoragePokemonInteraction {
             pokemon.setPalette(paletteToTry);
         }
         else {
-            VanillaCrossover.LOGGER.info("Tried to set a chestable mon's palette, but the palette was not found (no palette change occurred - this is not an issue!)");
+            VanillaCrossover.LOGGER.info("Tried to set a storage mon's palette, but the palette was not found (no palette change occurred - this is not an issue!)");
             VanillaCrossover.LOGGER.info("See this Pokemon's definition if it should have a custom palette: " + pokemon.getSpecies() + ":" + paletteToTry);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerContainerClosed(PlayerContainerEvent event) {
+        if (event.getContainer() instanceof PokemonStorageContainer) {
+            if (event.getPlayer() instanceof ServerPlayerEntity) {
+                PokemonStorageContainer container = (PokemonStorageContainer) event.getContainer();
+                container.storage.inventoryEvent();
+            }
         }
     }
 }

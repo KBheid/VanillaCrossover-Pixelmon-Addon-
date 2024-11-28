@@ -13,6 +13,7 @@ public class ConfigProxy {
     private static CreateAndPlantSeedConfig createAndPlantSeedConfig;
     private static SwapPositionOwnerInDangerConfig swapPositionOwnerInDangerConfig;
     private static BounceConfig bounceConfig;
+    private static PeriodicEffectConfig periodicEffectConfig;
 
     ConfigProxy() { }
 
@@ -25,6 +26,7 @@ public class ConfigProxy {
             createAndPlantSeedConfig = YamlConfigFactory.getInstance(CreateAndPlantSeedConfig.class);
             swapPositionOwnerInDangerConfig = YamlConfigFactory.getInstance(SwapPositionOwnerInDangerConfig.class);
             bounceConfig = YamlConfigFactory.getInstance(BounceConfig.class);
+            periodicEffectConfig = YamlConfigFactory.getInstance(PeriodicEffectConfig.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,4 +39,5 @@ public class ConfigProxy {
     public static CreateAndPlantSeedConfig getCreateAndPlantSeedConfig() { return createAndPlantSeedConfig; }
     public static SwapPositionOwnerInDangerConfig getSwapPositionOwnerInDangerConfig() { return swapPositionOwnerInDangerConfig; }
     public static BounceConfig getBounceConfig() { return bounceConfig; }
+    public static PeriodicEffectConfig getPeriodicEffectConfig() { return periodicEffectConfig; }
 }

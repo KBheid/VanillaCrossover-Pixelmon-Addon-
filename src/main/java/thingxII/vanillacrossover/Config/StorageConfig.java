@@ -18,7 +18,52 @@ import java.util.List;
 @ConfigPath("config/vanillacrossover/Storage.yml")
 public class StorageConfig extends AbstractYamlConfig {
     private String palettePrefix = "basket";
-    private List<EntityConfig> configs = Collections.singletonList(new EntityConfig());
+    private List<EntityConfig> configs = Arrays.asList(
+            new EntityConfig(
+                    new PredicateConfig(new ArrayList<>(), new ArrayList<>(), Arrays.asList("MUDBRAY", "MUDSDALE")),
+                    "minecraft:barrel",
+                    false,
+                    new StatIntegerConfig(1,
+                        new StatIntegerConfig.PokemonStatConfig(
+                            126,
+                            true,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false
+                            ), new StatIntegerConfig.PokemonStatConfig(
+                            15,
+                            true,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false,
+                            -1,
+                            false
+                    ), new StatIntegerConfig.PixelmonStatConfig(
+                            5,
+                            true,
+                            -1,
+                            false,
+                            false))
+            ),
+            new EntityConfig(
+                    new PredicateConfig(new ArrayList<>(), Collections.singletonList("Cheek Pouch"), new ArrayList<>()),
+                    null,
+                    true,
+                    new StatIntegerConfig(1, new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PixelmonStatConfig())
+            )
+    );
 
     StorageConfig() { }
 
@@ -27,46 +72,27 @@ public class StorageConfig extends AbstractYamlConfig {
 
     @ConfigSerializable
     public static class EntityConfig {
-        private PredicateConfig predicate = new PredicateConfig(new ArrayList<>(), new ArrayList<>(), Arrays.asList("MUDBRAY", "MUDSDALE"));
-        private String item = "minecraft:barrel";
-        private StatIntegerConfig sizeCalculation = new StatIntegerConfig(1,
-                new StatIntegerConfig.PokemonStatConfig(
-                        126,
-                        true,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false
-                ), new StatIntegerConfig.PokemonStatConfig(
-                        15,
-                        true,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false,
-                        -1,
-                        false
-                ), new StatIntegerConfig.PixelmonStatConfig(
-                        5,
-                        true,
-                        -1,
-                        false,
-                        false));
+        private PredicateConfig predicate = new PredicateConfig(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        private String item = "";
+        private boolean togglePaletteWhenEmpty = false;
+        private StatIntegerConfig sizeCalculation = new StatIntegerConfig(1, new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PixelmonStatConfig());
 
         EntityConfig() { }
+        EntityConfig(PredicateConfig predicate, String item, boolean togglePaletteWhenEmpty, StatIntegerConfig sizeCalculation) {
+            this.predicate = predicate;
+            this.item = item;
+            this.togglePaletteWhenEmpty = togglePaletteWhenEmpty;
+            this.sizeCalculation = sizeCalculation;
+        }
 
         public PredicateConfig getPredicate() { return predicate; }
-        public Item getItem() { return ForgeRegistries.ITEMS.getValue(new ResourceLocation(item)); };
+        public Item getItem() {
+            if (item == null || item.isEmpty()) {
+                return null;
+            }
+            return ForgeRegistries.ITEMS.getValue(new ResourceLocation(item));
+        };
+        public boolean getTogglePaletteWhenEmpty() { return togglePaletteWhenEmpty; }
         public StatIntegerConfig getSizeCalculation() { return sizeCalculation; }
     }
 }

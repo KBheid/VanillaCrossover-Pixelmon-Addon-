@@ -12,14 +12,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import thingxII.vanillacrossover.Effects.DoubleCropGrowth;
-import thingxII.vanillacrossover.Effects.HarvestCrops;
-import thingxII.vanillacrossover.Effects.CreateAndPlantSeeds;
+import thingxII.vanillacrossover.Effects.*;
 import thingxII.vanillacrossover.Config.StatusItemsConfig;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.BlazePowderBurn;
 import thingxII.vanillacrossover.ItemEffects.StatusEffectItems.PufferPoison;
-import thingxII.vanillacrossover.Effects.BounceOnRightClick;
-import thingxII.vanillacrossover.Effects.SwapPositionOwnerInDanger;
 import thingxII.vanillacrossover.Effects.StoragePokemon.PlayerPokemonStorage;
 import thingxII.vanillacrossover.Effects.StoragePokemon.StoragePokemonInteraction;
 import thingxII.vanillacrossover.Effects.PeriodicDropping.PeriodicDropping;
@@ -59,6 +55,7 @@ public class VanillaCrossover {
         MinecraftForge.EVENT_BUS.register(CreateAndPlantSeeds.class);
         MinecraftForge.EVENT_BUS.register(BounceOnRightClick.class);
         MinecraftForge.EVENT_BUS.register(SwapPositionOwnerInDanger.class);
+        MinecraftForge.EVENT_BUS.register(ApplyPeriodicEffect.class);
     }
 
 }

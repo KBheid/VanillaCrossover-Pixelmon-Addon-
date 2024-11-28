@@ -270,6 +270,7 @@
               "name": "basket_shiny",
               "texture": "pixelmon:pokemon/749_mudbray/all/base/shiny/mudbray_basket_texture.png",
               "sprite": "pixelmon:pokemon/749_mudbray/all/base/shiny/sprite.png",
+              "particle": "arcanery:shiny",
               "modelLocator": {
                 "factoryType": "DUAL",
                 "pqc": [
