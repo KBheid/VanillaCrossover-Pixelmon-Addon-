@@ -50,6 +50,7 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
   - When the player is flying (with elytra or on a pokemon) any flying Pokemon from their party that are out will fly in a V pattern with the player at the front. (Require AI framework)
   - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
+  - Optionally enable old Pixelmon breeding behavior (best crossover was removed :( ) See the old way here: https://pixelmonmod.com/wiki/Breeding/Environment
   - AI Framework for controlling Pokemon entities' movement/actions.
   - The ability to leave Pokemon out while not in your party. (This will likely be a large task and may require the AI framework).
 
