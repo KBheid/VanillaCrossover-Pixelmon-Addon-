@@ -45,6 +45,7 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - Heatran will instant-smelt items in nearby furnaces occasionally.
   - Some Pokemon that can be traded with to re-implement Piglin bartering.
   - Add some cosmetic blocks.
+  - When a battle completes, if the owned Pokemon cannot gain experience, drop XP orbs on the ground for the player. (e.g. level locked or level 100 pokemon)
   - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
   - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
   - When the player is flying (with elytra or on a pokemon) any flying Pokemon from their party that are out will fly in a V pattern with the player at the front. (Require AI framework)
