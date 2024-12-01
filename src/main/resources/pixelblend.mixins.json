@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "thingxII.pixelblend.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "pixelblend.refmap.json",
+  "mixins": [
+    "Patch_FurnaceDataAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

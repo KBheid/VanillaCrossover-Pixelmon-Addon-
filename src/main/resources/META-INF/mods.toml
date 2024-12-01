@@ -8,7 +8,7 @@ version = "${mod_version}"
 displayName = "${mod_name}"
 displayURL="https://github.com/KBheid/VanillaCrossover_PixelmonAddon"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
-logoFile="vanillacrossover.png"
+logoFile= "pixelblend.png"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
 
