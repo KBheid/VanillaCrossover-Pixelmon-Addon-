@@ -48,6 +48,7 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - When a battle completes, if the owned Pokemon cannot gain experience, drop XP orbs on the ground for the player. (e.g. level locked or level 100 pokemon)
   - Cramorant will fish occasionally (vanilla fishing rewards, but configurable)
   - Camerupt works as a (slow? but) mobile furnace with infinite fuel.
+  - Multiple riders on a single Pokemon - like camels and boats.
   - When the player is flying (with elytra or on a pokemon) any flying Pokemon from their party that are out will fly in a V pattern with the player at the front. (Require AI framework)
   - Timburr evo line can chop trees. (Requires an AI framework for controlling Pixelmon movement).
   - Optionally enable old Pixelmon breeding behavior (best crossover was removed :( ) See the old way here: https://pixelmonmod.com/wiki/Breeding/Environment
