@@ -73,8 +73,7 @@ public class BlazePowderBurn {
                     if (player.level instanceof ServerWorld) {
                         Vector3d startPos = player.getEyePosition(1.0F);
 
-                        Vector3d Direction = player.getForward().normalize();
-
+                        Vector3d direction = Vector3d.directionFromRotation(player.getRotationVector());
                         Random rand = new Random();
 
                         int particleCount = rand.nextInt(MAX_PARTICLES - MIN_PARTICLES) + MIN_PARTICLES;
@@ -83,7 +82,7 @@ public class BlazePowderBurn {
                         world.<BasicParticleType>sendParticles(ParticleTypes.FLAME,
                                 startPos.x, startPos.y, startPos.z,
                                 particleCount,
-                                Direction.x, Direction.y, Direction.z,
+                                direction.x, direction.y, direction.z,
                                 MAX_PARTICLE_VELOCITY);
 
                         // Consume the event

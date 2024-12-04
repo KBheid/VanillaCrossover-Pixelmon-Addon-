@@ -79,7 +79,7 @@ public class BounceOnRightClick {
             float forwardForce = (statScalar * (config.getMaxForwardForce() - config.getMinForwardForce())) + config.getMinForwardForce();
             float upwardForce = (statScalar * (config.getMaxUpwardForce() - config.getMinUpwardForce())) + config.getMinUpwardForce();
 
-            Vector3d playerForward = player.getForward();
+            Vector3d playerForward = Vector3d.directionFromRotation(player.getRotationVector());
             double xForce = playerForward.x * forwardForce;
             double zForce = playerForward.z * forwardForce;
 
