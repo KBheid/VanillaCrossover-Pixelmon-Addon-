@@ -58,7 +58,7 @@ public class StorageConfig extends AbstractYamlConfig {
                             false))
             ),
             new EntityConfig(
-                    new PredicateConfig(new ArrayList<>(), Collections.singletonList("Cheek Pouch"), new ArrayList<>()),
+                    new PredicateConfig(new ArrayList<>(), Collections.singletonList("CheekPouch"), new ArrayList<>()),
                     null,
                     true,
                     new StatIntegerConfig(1, new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PokemonStatConfig(), new StatIntegerConfig.PixelmonStatConfig())

@@ -35,42 +35,42 @@ public class StatIntegerConfig {
             int spDefenseEvs = pokemon.getEVs().getStat(BattleStatsType.SPECIAL_DEFENSE);
             int speedEvs = pokemon.getEVs().getStat(BattleStatsType.SPEED);
 
-            if (evs.hpThreshold >= 0 && hpEvs > evs.hpThreshold) {
+            if (evs.hpThreshold >= 0 && hpEvs >= evs.hpThreshold) {
                 curVal++;
 
                 if (evs.maxHpIncreases && hpEvs >= 252) {
                     maxIncrease = true;
                 }
             }
-            if (evs.attackThreshold >= 0 && attackEvs > evs.attackThreshold) {
+            if (evs.attackThreshold >= 0 && attackEvs >= evs.attackThreshold) {
                 curVal++;
 
                 if (evs.maxAttackIncreases && attackEvs >= 252) {
                     maxIncrease = true;
                 }
             }
-            if (evs.defenseThreshold >= 0 && defenseEvs > evs.defenseThreshold) {
+            if (evs.defenseThreshold >= 0 && defenseEvs >= evs.defenseThreshold) {
                 curVal++;
 
                 if (evs.maxDefenseIncreases && defenseEvs >= 252) {
                     maxIncrease = true;
                 }
             }
-            if (evs.spAttackThreshold >= 0 && spAttackEvs > evs.spAttackThreshold) {
+            if (evs.spAttackThreshold >= 0 && spAttackEvs >= evs.spAttackThreshold) {
                 curVal++;
 
                 if (evs.maxSpAttackIncreases && spAttackEvs >= 252) {
                     maxIncrease = true;
                 }
             }
-            if (evs.spDefenseThreshold >= 0 && spDefenseEvs > evs.spDefenseThreshold) {
+            if (evs.spDefenseThreshold >= 0 && spDefenseEvs >= evs.spDefenseThreshold) {
                 curVal++;
 
                 if (evs.maxSpDefenseIncreases && spDefenseEvs >= 252) {
                     maxIncrease = true;
                 }
             }
-            if (evs.speedThreshold >= 0 && speedEvs > evs.speedThreshold) {
+            if (evs.speedThreshold >= 0 && speedEvs >= evs.speedThreshold) {
                 curVal++;
 
                 if (evs.maxSpeedIncreases && speedEvs >= 252) {
@@ -150,7 +150,7 @@ public class StatIntegerConfig {
                 }
             }
 
-            if (otherStats.dynamaxThreshold >= 0 && dynamax > otherStats.dynamaxThreshold) {
+            if (otherStats.dynamaxThreshold >= 0 && dynamax >= otherStats.dynamaxThreshold) {
                 curVal++;
 
                 if (otherStats.maxDynamaxIncreases && dynamax >= 10) {

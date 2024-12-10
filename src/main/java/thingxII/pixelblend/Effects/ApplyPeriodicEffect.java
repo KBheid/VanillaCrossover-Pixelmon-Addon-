@@ -43,27 +43,29 @@ public class ApplyPeriodicEffect {
 
         if (config.getApplyDirectlyToOwner()) {
             entity.getPokemon().getOwnerPlayer().addEffect(new EffectInstance(toApply, config.getDurationSeconds() * 20, config.getLevel()));
-            return null;
         }
 
         float radius = config.getApplyRange();
-        BlockPos position = entity.blockPosition();
+        if (radius > 0.0f) {
+            BlockPos position = entity.blockPosition();
 
-        ServerWorld world = (ServerWorld) entity.level;
-        List<LivingEntity> nearbyEntities = world.getNearbyEntities(LivingEntity.class, new EntityPredicate() {
-                    @Override
-                    public boolean test(@Nullable LivingEntity p_221015_1_, LivingEntity p_221015_2_) {
-                        return p_221015_2_.isInWater();
-                    }
-                }, entity,
-                new AxisAlignedBB(
-                        position.subtract(new Vector3i(radius, radius, radius)),
-                        position.offset(new Vector3i(radius, radius, radius))
-                )
-        );
+            ServerWorld world = (ServerWorld) entity.level;
+            List<LivingEntity> nearbyEntities = world.getNearbyEntities(LivingEntity.class, new EntityPredicate() {
+                        @Override
+                        public boolean test(@Nullable LivingEntity p_221015_1_, LivingEntity p_221015_2_) {
+                            return true;
+                        }
+                    },
+                    entity,
+                    new AxisAlignedBB(
+                            position.subtract(new Vector3i(radius, radius, radius)),
+                            position.offset(new Vector3i(radius, radius, radius))
+                    )
+            );
 
-        for (LivingEntity nearbyEntity : nearbyEntities) {
-            nearbyEntity.addEffect(new EffectInstance(toApply, config.getDurationSeconds() * 20, config.getLevel()));
+            for (LivingEntity nearbyEntity : nearbyEntities) {
+                nearbyEntity.addEffect(new EffectInstance(toApply, config.getDurationSeconds() * 20, config.getLevel()));
+            }
         }
 
         return null;
