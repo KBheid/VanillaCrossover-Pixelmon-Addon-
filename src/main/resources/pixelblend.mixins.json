@@ -8,6 +8,7 @@
     "Patch_FurnaceDataAccessor"
   ],
   "client": [
+    "Patch_PixelmonModelSmd"
   ],
   "injectors": {
     "defaultRequire": 1

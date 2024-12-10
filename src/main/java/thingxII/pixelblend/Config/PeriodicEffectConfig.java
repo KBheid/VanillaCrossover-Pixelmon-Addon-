@@ -23,7 +23,7 @@ public class PeriodicEffectConfig extends AbstractYamlConfig {
                     new PredicateConfig(new ArrayList<>(), Collections.singletonList("Torrent"), new ArrayList<>()),
                     15,
                     "DOLPHINS_GRACE",
-                    0,
+                    1,
                     8,
                     false,
                     6
