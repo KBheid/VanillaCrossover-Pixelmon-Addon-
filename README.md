@@ -13,7 +13,6 @@ If you install the mod and run it as-is out of the box, you'll have access to th
   - **Harvest**: Pokemon that have this ability will periodically harvest crops around them. By default, this applies only to owned Pokemon.
   - **Seed Sower**: Pokemon with this ability (ie. Arboliva) will plant seeds where they walk (do not need to pick any seeds up).
   - **Cheek Pouch**: Pokemon with this ability will have a small storage of 9 slots. When they hold an item, their cheeks will be a bit puffier.
-    - *Note: The puffier cheek palette swap is only currently implemented for Skwovet, but will be added for all pokemon that can have this ability normally, as well as for Maushold 3 and 4.*
 - Move Effects:
   - **Ally Switch**: Pokemon that know this move will swap positions with the player if they fall into lava. (3 minute cooldown)
 - Status Effect Items
